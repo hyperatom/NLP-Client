@@ -1,3 +1,5 @@
+var BowerWebpackPlugin = require("bower-webpack-plugin");
+
 module.exports = {
     entry: './index.jsx',
     output: {
