@@ -1,6 +1,6 @@
 'use strict';
 
-var ReactDOM  = require('react-dom'),
-    SearchBox = require('./components/searchBox');
+var ReactDOM    = require('react-dom'),
+    SearchPanel = require('./components/search-panel/component');
 
-ReactDOM.render(<SearchBox />, document.getElementById('content'));
+ReactDOM.render(<SearchPanel />, document.getElementById('content'));
