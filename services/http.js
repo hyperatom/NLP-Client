@@ -18,37 +18,100 @@ function mapRequestToResponse(request) {
 
     return {
         status: request.status,
-        data: JSON.parse(request.response)
+        data: JSON.parse(request['response'])
     };
+}
+
+function urlEncode(obj) {
+    
+    var str = [];
+    
+    for (var p in obj) {
+        
+        if (obj.hasOwnProperty(p)) {
+            
+            str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
+        }
+    }
+    
+    return str.join('&');
+}
+
+function methodRequiresParams(method) {
+
+    return method === 'POST' || method === 'PUT';
+}
+
+function isSuccessStatusCode(statusCode) {
+
+    return statusCode === 200 || statusCode === 201;
+}
+
+function resolvePromiseOnResponse(defered, request) {
+
+    request.onreadystatechange = function() {
+
+        if (request.readyState == XMLHttpRequest.DONE) {
+
+            var response = mapRequestToResponse(request);
+
+            if (isSuccessStatusCode(request.status)) {
+
+                defered.resolve(response);
+
+            } else {
+
+                defered.reject(response);
+            }
+        }
+    };
+}
+
+function sendRequest() {
+
+    var method   = arguments[0],
+        endpoint = arguments[1],
+        data     = arguments[2];
+
+    var request = createRequest(),
+        defer   = q.defer();
+
+    resolvePromiseOnResponse(defer, request);
+
+    request.open(method, endpoint, true);
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    if (methodRequiresParams(method)) {
+
+        request.send(urlEncode(data));
+
+    } else {
+
+        request.send();
+    }
+
+    return defer.promise;
 }
 
 module.exports = {
 
+    post: function(endpoint, data) {
+
+        return sendRequest('POST', endpoint, data);
+    },
+
     get: function(endpoint) {
 
-        var request = createRequest(),
-            defer   = q.defer();
+        return sendRequest('GET', endpoint);
+    },
 
-        request.onreadystatechange = function() {
+    put: function(endpoint, data) {
 
-            if (request.readyState == XMLHttpRequest.DONE) {
+        return sendRequest('PUT', data);
+    },
 
-                var response = mapRequestToResponse(request);
+    delete: function(endpoint) {
 
-                if (request.status == 200) {
-
-                    defer.resolve(response);
-
-                } else {
-
-                    defer.reject(response);
-                }
-            }
-        };
-
-        request.open('GET', endpoint, true);
-        request.send();
-
-        return defer.promise;
+        return sendRequest('DELETE', endpoint);
     }
 };
