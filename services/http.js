@@ -1,6 +1,7 @@
 'use strict';
 
-var q = require('q');
+var q    = require('q'),
+    keys = require('../constants/keys');
 
 function createRequest() {
 
@@ -67,6 +68,12 @@ function resolvePromiseOnResponse(defered, request) {
     };
 }
 
+function attachHeaders(request) {
+
+    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    request.setRequestHeader('X-TextRazor-Key', keys.TEXT_RAZOR);
+}
+
 function sendRequest() {
 
     var method   = arguments[0],
@@ -79,7 +86,8 @@ function sendRequest() {
     resolvePromiseOnResponse(defer, request);
 
     request.open(method, endpoint, true);
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+    attachHeaders(request);
 
     if (methodRequiresParams(method)) {
 

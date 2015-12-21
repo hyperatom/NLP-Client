@@ -8,7 +8,12 @@ module.exports = React.createClass({
 
     buttonClicked: function() {
 
-        http.get('http://jsonplaceholder.typicode.com/posts')
+        var data = {
+            extractors: 'entities,entailments',
+            text: 'The dog sat on the mat.'
+        };
+
+        http.post('https://api.textrazor.com', data)
             .then(function(data) {
                 console.log('done', data);
             }, function(data) {
