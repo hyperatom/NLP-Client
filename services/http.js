@@ -1,7 +1,6 @@
 'use strict';
 
-var q    = require('q'),
-    keys = require('../constants/keys');
+var q = require('q');
 
 function createRequest() {
 
@@ -71,7 +70,6 @@ function resolvePromiseOnResponse(defered, request) {
 function attachHeaders(request) {
 
     request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    request.setRequestHeader('X-TextRazor-Key', keys.TEXT_RAZOR);
 }
 
 function sendRequest() {
@@ -108,7 +106,9 @@ module.exports = {
         return sendRequest('POST', endpoint, data);
     },
 
-    get: function(endpoint) {
+    get: function(endpoint, urlParams) {
+
+        endpoint += '?' + urlEncode(urlParams);
 
         return sendRequest('GET', endpoint);
     },

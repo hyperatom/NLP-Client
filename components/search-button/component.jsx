@@ -9,11 +9,10 @@ module.exports = React.createClass({
     buttonClicked: function() {
 
         var data = {
-            extractors: 'entities,entailments',
-            text: 'The dog sat on the mat.'
+            q: 'The dog sat on the mat.'
         };
 
-        http.post('https://api.textrazor.com', data)
+        http.get('http://localhost:8990', data)
             .then(function(data) {
                 console.log('done', data);
             }, function(data) {
