@@ -2,16 +2,17 @@
 
 import TextAnalyzer from '../services/textAnalyser';
 
-export default function(state, action) {
+var defaultState = {
+    searchText: ''
+};
 
-    if (typeof state === 'undefined') {
-
-        return {
-            searchText: ''
-        };
-    }
+export default function(state = defaultState, action) {
 
     switch (action.type) {
+
+        case 'ANALYSE_TEXT_SUCCESS':
+
+            return state;
 
         case 'TEXT_CHANGED':
 
@@ -21,7 +22,11 @@ export default function(state, action) {
 
         case 'ANALYSE_TEXT':
 
-            TextAnalyzer.analyse(state.searchText);
+            TextAnalyzer.analyse(state.searchText)
+                .then(function(data) {
+
+                    console.log('data', data);
+                });
 
             return state;
 

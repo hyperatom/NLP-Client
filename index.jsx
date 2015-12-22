@@ -1,11 +1,12 @@
 import ReactDOM     from 'react-dom';
 import SearchPanel  from './components/search-panel/SearchPanel';
 
-import { createStore }      from 'redux';
-import { Provider }         from 'react-redux';
-import TextAnalysisReducer  from './reducers/textAnalysisReducer';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider }                     from 'react-redux';
+import thunk                            from 'redux-thunk';
+import TextAnalysisReducer              from './reducers/textAnalysisReducer';
 
-var store = createStore(TextAnalysisReducer);
+var store = applyMiddleware(thunk)(createStore)(TextAnalysisReducer);
 
 ReactDOM.render(
 

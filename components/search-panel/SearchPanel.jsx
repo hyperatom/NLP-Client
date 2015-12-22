@@ -11,7 +11,7 @@ import { connect } from 'react-redux';
 var mapStateToProps = function(state) {
 
     return {
-        searchText: state.text
+        searchText: state.searchText
     };
 };
 
