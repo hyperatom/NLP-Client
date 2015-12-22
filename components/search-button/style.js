@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
     height: 46,
     color: 'white',
     fontSize: 20,

@@ -1,15 +1,15 @@
 'use strict';
 
-var React = require('react'),
-    style = require('./style');
+import React from 'react';
+import style from './style';
 
-module.exports = React.createClass({
+export default class TextAnalysis extends React.Component {
 
-    render: function() {
+    render() {
         return (
             <article>
                 { this.props.analysedText }
             </article>
         )
     }
-});
+}

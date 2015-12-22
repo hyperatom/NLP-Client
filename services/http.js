@@ -1,6 +1,6 @@
 'use strict';
 
-var q = require('q');
+import q from 'q';
 
 function createRequest() {
 
@@ -99,27 +99,29 @@ function sendRequest() {
     return defer.promise;
 }
 
-module.exports = {
+class Http {
 
-    post: function(endpoint, data) {
+    post(endpoint, data) {
 
         return sendRequest('POST', endpoint, data);
-    },
+    }
 
-    get: function(endpoint, urlParams) {
+    get(endpoint, urlParams) {
 
         endpoint += '?' + urlEncode(urlParams);
 
         return sendRequest('GET', endpoint);
-    },
+    }
 
-    put: function(endpoint, data) {
+    put(endpoint, data) {
 
         return sendRequest('PUT', data);
-    },
+    }
 
-    delete: function(endpoint) {
+    delete(endpoint) {
 
         return sendRequest('DELETE', endpoint);
     }
-};
+}
+
+export default new Http();

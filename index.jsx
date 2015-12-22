@@ -1,6 +1,4 @@
-'use strict';
-
-var ReactDOM    = require('react-dom'),
-    SearchPanel = require('./components/search-panel/component');
+import ReactDOM    from 'react-dom';
+import SearchPanel from './components/search-panel/SearchPanel';
 
 ReactDOM.render(<SearchPanel />, document.getElementById('content'));

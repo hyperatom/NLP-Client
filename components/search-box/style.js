@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+export default {
     height: 40,
     fontSize: 20,
     width: 500,
