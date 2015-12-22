@@ -1,9 +1,9 @@
 'use strict';
 
-import TextAnalyzer from '../services/textAnalyser';
-
 var defaultState = {
-    searchText: ''
+    searchText: '',
+    isAnalysing: false,
+    textAnalysis: {}
 };
 
 export default function(state = defaultState, action) {
@@ -12,7 +12,10 @@ export default function(state = defaultState, action) {
 
         case 'ANALYSE_TEXT_SUCCESS':
 
-            return state;
+            return Object.assign({}, state, {
+                textAnalysis: action.data,
+                isAnalysing: false
+            });
 
         case 'TEXT_CHANGED':
 
@@ -22,13 +25,9 @@ export default function(state = defaultState, action) {
 
         case 'ANALYSE_TEXT':
 
-            TextAnalyzer.analyse(state.searchText)
-                .then(function(data) {
-
-                    console.log('data', data);
-                });
-
-            return state;
+            return Object.assign({}, state, {
+                isAnalysing: true
+            });
 
         default:
             return state;
