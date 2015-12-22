@@ -1,4 +1,17 @@
-import ReactDOM    from 'react-dom';
-import SearchPanel from './components/search-panel/SearchPanel';
+import ReactDOM     from 'react-dom';
+import SearchPanel  from './components/search-panel/SearchPanel';
 
-ReactDOM.render(<SearchPanel />, document.getElementById('content'));
+import { createStore }      from 'redux';
+import { Provider }         from 'react-redux';
+import TextAnalysisReducer  from './reducers/textAnalysisReducer';
+
+var store = createStore(TextAnalysisReducer);
+
+ReactDOM.render(
+
+    <Provider store={ store }>
+        <SearchPanel />
+    </Provider>,
+
+    document.getElementById('content')
+);

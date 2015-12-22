@@ -6,15 +6,42 @@ import SearchButton from '../search-button/SearchButton';
 import TextAnalysis from '../text-analysis/TextAnalysis';
 import style        from './style';
 
-export default class SearchPanel extends React.Component {
+import { connect } from 'react-redux';
+
+var mapStateToProps = function(state) {
+
+    return {
+        searchText: state.text
+    };
+};
+
+var mapDispatchToProps = function(dispatch) {
+
+    return {
+        analyseText() {
+            return dispatch({
+                type: 'ANALYSE_TEXT'
+            });
+        },
+
+        textChanged(text) {
+            return dispatch({
+                type: 'TEXT_CHANGED',
+                text: text
+            });
+        }
+    };
+};
+
+class SearchPanel extends React.Component {
 
     render() {
 
         return (
             <article style={ style }>
 
-                <SearchBox />
-                <SearchButton />
+                <SearchBox onChange={ this.props.textChanged } />
+                <SearchButton onClick={ this.props.analyseText }  />
 
                 <TextAnalysis analysedText="Adam" />
 
@@ -22,3 +49,5 @@ export default class SearchPanel extends React.Component {
         )
     }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPanel);
