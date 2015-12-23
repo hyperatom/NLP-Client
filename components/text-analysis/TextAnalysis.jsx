@@ -8,27 +8,22 @@ export default class TextAnalysis extends React.Component {
     render() {
 
         return (
-            <article>
+            <article style={ style.section }>
 
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>Subject:</td>
-                            <td>{ this.props.subject }</td>
-                        </tr>
+                <div style={ style.sentencePart }>
+                    <span style={ style.sentencePartKey }>Subject</span>
+                    <span style={ style.sentencePartValue }>{ this.props.subject }</span>
+                </div>
 
-                        <tr>
-                            <td>Action:</td>
-                            <td>{ this.props.action }</td>
-                        </tr>
+                <div style={ style.sentencePart }>
+                    <span style={ style.sentencePartKey }>Action</span>
+                    <span style={ style.sentencePartValue }>{ this.props.action }</span>
+                </div>
 
-                        <tr>
-                            <td>Object:</td>
-                            <td>{ this.props.object }</td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div style={ style.sentencePart }>
+                    <span style={ style.sentencePartKey }>Object</span>
+                    <span style={ style.sentencePartValue }>{ this.props.object }</span>
+                </div>
             </article>
         )
     }

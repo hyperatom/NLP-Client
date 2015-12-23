@@ -64,7 +64,15 @@ class SearchPanel extends React.Component {
     render() {
 
         return (
-            <article style={ style }>
+            <article style={ style.section }>
+
+                <h1 style={ style.sectionTitle }>
+                    Subject Action Object
+                </h1>
+
+                <p style={ style.sectionIntro }>
+                    Enter a simple sentence and click <span style={ style.actionText }>analyse</span>.
+                </p>
 
                 <SearchBox onChange={ this.props.textChanged } />
                 <SearchButton onClick={ this.props.analyseText }  />

@@ -1,8 +1,11 @@
 'use strict';
 
 export default {
-    height: 40,
-    fontSize: 20,
-    width: 500,
-    border: '2px solid grey'
+    marginTop: 10,
+    width: '100%',
+    display: 'block',
+    border: '1px solid #661141',
+    fontSize: 15,
+    padding: 10,
+    fontFamily: 'Muli'
 };

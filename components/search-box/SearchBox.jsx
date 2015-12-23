@@ -20,6 +20,6 @@ export default class SearchBox extends React.Component {
     }
 
     render() {
-        return <input onChange={ this.inputChanged } type="text" style={ style } />
+        return <input placeholder="The cat sat on the mat." onChange={ this.inputChanged } type="text" style={ style } />
     }
 }
