@@ -4,7 +4,7 @@ export default {
     section: {
         padding: 5,
         margin: '50px auto',
-        maxWidth: 600
+        maxWidth: 700
     },
 
     sectionTitle: {

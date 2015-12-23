@@ -29,5 +29,15 @@ export default {
         paddingRight: 10,
         paddingTop: 10,
         paddingBottom: 10
+    },
+
+    errorEmphasis: {
+        fontWeight: 'bold'
+    },
+
+    errorMessage: {
+        marginTop: 20,
+        fontFamily: 'Muli',
+        color: 'red'
     }
 };

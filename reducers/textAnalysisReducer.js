@@ -3,6 +3,7 @@
 var defaultState = {
     searchText: '',
     isAnalysing: false,
+    hasAnalysed: false,
     subject: null,
     action: null,
     object: null
@@ -18,7 +19,8 @@ export default function(state = defaultState, action) {
                 subject: action.subject,
                 action: action.action,
                 object: action.object,
-                isAnalysing: false
+                isAnalysing: false,
+                hasAnalysed: true
             });
 
         case 'TEXT_CHANGED':

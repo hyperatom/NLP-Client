@@ -15,6 +15,7 @@ var mapStateToProps = function(state) {
     return {
         searchText:   state.searchText,
         isAnalysing:  state.isAnalysing,
+        hasAnalysed:  state.hasAnalysed,
         subject:      state.subject,
         action:       state.action,
         object:       state.object
@@ -77,7 +78,10 @@ class SearchPanel extends React.Component {
                 <SearchBox onChange={ this.props.textChanged } />
                 <SearchButton onClick={ this.props.analyseText }  />
 
-                <TextAnalysis subject={ this.props.subject} action={ this.props.action } object={ this.props.object } />
+                <TextAnalysis hasAnalysed={ this.props.hasAnalysed}
+                              subject={ this.props.subject}
+                              action={ this.props.action }
+                              object={ this.props.object } />
 
             </article>
         )
