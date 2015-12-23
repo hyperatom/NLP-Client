@@ -15,7 +15,9 @@ var mapStateToProps = function(state) {
     return {
         searchText:   state.searchText,
         isAnalysing:  state.isAnalysing,
-        textAnalysis: state.textAnalysis
+        subject:      state.subject,
+        action:       state.action,
+        object:       state.object
     };
 };
 
@@ -25,14 +27,18 @@ var mapDispatchToProps = function(dispatch) {
 
         analyseText() {
 
-            return dispatch(function(thunkDispatch, getState) {
+            return dispatch((thunkDispatch, getState) => {
 
                 TextAnalyzer.analyse(getState().searchText)
                     .then((data) => {
 
+                        var sao = TextAnalyzer.extractSubjectActionObject(data);
+
                         return thunkDispatch({
-                            type: 'ANALYSE_TEXT_SUCCESS',
-                            data: data
+                            type: 'SET_SAO',
+                            subject: sao.subject,
+                            action: sao.action,
+                            object: sao.object
                         });
                     });
 
@@ -63,7 +69,7 @@ class SearchPanel extends React.Component {
                 <SearchBox onChange={ this.props.textChanged } />
                 <SearchButton onClick={ this.props.analyseText }  />
 
-                <TextAnalysis analysedText="Adam" />
+                <TextAnalysis subject={ this.props.subject} action={ this.props.action } object={ this.props.object } />
 
             </article>
         )

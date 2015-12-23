@@ -3,17 +3,21 @@
 var defaultState = {
     searchText: '',
     isAnalysing: false,
-    textAnalysis: {}
+    subject: null,
+    action: null,
+    object: null
 };
 
 export default function(state = defaultState, action) {
 
     switch (action.type) {
 
-        case 'ANALYSE_TEXT_SUCCESS':
+        case 'SET_SAO':
 
             return Object.assign({}, state, {
-                textAnalysis: action.data,
+                subject: action.subject,
+                action: action.action,
+                object: action.object,
                 isAnalysing: false
             });
 
