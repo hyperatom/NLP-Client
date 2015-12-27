@@ -2,9 +2,9 @@
   "name": "Sentence-Structure-Checker",
   "version": "1.0.0",
   "description": "A natural language parser that detects sentence structure.",
-  "main": "index.js",
   "scripts": {
     "start": "npm run serve | npm run dev",
+    "build": "NODE_ENV=production webpack -p --config webpack.config.js",
     "serve": "./node_modules/.bin/http-server -p 8080 -o",
     "dev": "webpack-dev-server --progress --colors --port 8090"
   },
@@ -16,7 +16,7 @@
     "react-dom": "0.14.3",
     "react-redux": "4.0.3",
     "redux": "3.0.5",
-    "redux-thunk": "^1.0.2"
+    "redux-thunk": "1.0.2"
   },
   "devDependencies": {
     "babel-core": "6.3.21",
