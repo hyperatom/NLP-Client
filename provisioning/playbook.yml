@@ -1,0 +1,39 @@
+---
+
+- hosts: web_server
+  sudo: yes
+
+  roles:
+    - ansible-swapfile
+    - ansible-timezone
+    - nodesource.node
+
+  tasks:
+
+    - name: Allow us to work with PPAs easily
+      apt: name=python-software-properties
+
+    - name: Update app cache
+      apt: update_cache=yes
+
+    - name: Copy files to server
+      synchronize: src=../ dest=/nlp-client
+
+    - name: Install global Node modules
+      npm: name={{ item }} global=yes
+      with_items:
+        - forever
+
+    - name: Install node dependencies
+      environment:
+        NODE_ENV: production
+      npm: path=/nlp-client
+
+    - name: Check list of Node.js apps running
+      command: forever list
+      register: forever_list
+      changed_when: false
+
+    - name: Start Node server
+      command: chdir=/nlp-client forever start node_modules/.bin/http-server -p 80 -d false
+      when: "forever_list.stdout.find('node_modules/.bin/http-server') == -1"
