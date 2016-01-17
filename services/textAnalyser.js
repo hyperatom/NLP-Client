@@ -1,6 +1,7 @@
 'use strict';
 
 import Http from './http';
+import _    from 'underscore';
 
 var partOfSpeech = {
     SINGULAR_NOUN:        'NN',
@@ -60,44 +61,27 @@ function getPartOfSpeech(sentenceTree, type, index) {
     return '';
 }
 
-function getFirstOccurringNounType(nounTypes) {
+function getAllNouns(sentenceTree) {
 
-    var firstNoun = {};
+    var words = [];
 
-    for (var noun in nounTypes) {
+    words = words.concat(
+        getWordsOfType(sentenceTree, partOfSpeech.SINGULAR_NOUN),
+        getWordsOfType(sentenceTree, partOfSpeech.PLURAL_NOUN),
+        getWordsOfType(sentenceTree, partOfSpeech.SINGULAR_PROPER_NOUN),
+        getWordsOfType(sentenceTree, partOfSpeech.PLURAL_PROPER_NOUN)
+    );
 
-        if (nounTypes.hasOwnProperty(noun) && nounTypes[noun]) {
-
-            if (!firstNoun.id) {
-
-                firstNoun = nounTypes[noun];
-
-            } else if (nounTypes[noun].id < firstNoun.id) {
-
-                firstNoun = nounTypes[noun];
-            }
-        }
-    }
-
-    return firstNoun;
-}
-
-function getFirstNounOfAllTypes(sentenceTree) {
-
-    return {
-        singular:       getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_NOUN, 0),
-        plural:         getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_NOUN, 0),
-        singularProper: getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_PROPER_NOUN, 0),
-        pluralProper:   getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_PROPER_NOUN, 0)
-    };
+    return _.sortBy(words, function(word) {
+        return word.id;
+    });
 }
 
 function getFirstNoun(sentenceTree) {
 
-    var firstNouns = getFirstNounOfAllTypes(sentenceTree),
-        firstNoun  = getFirstOccurringNounType(firstNouns);
+    var allNouns = getAllNouns(sentenceTree);
 
-    return firstNoun.word || '';
+    return allNouns[0].word || '';
 }
 
 function getFirstVerb(sentenceTree) {
@@ -107,7 +91,9 @@ function getFirstVerb(sentenceTree) {
 
 function getSecondNoun(sentenceTree) {
 
-    return getPartOfSpeech(sentenceTree, 'NN', 1).word;
+    var allNouns = getAllNouns(sentenceTree);
+
+    return allNouns[1].word || '';
 }
 
 export default {

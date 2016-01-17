@@ -11,13 +11,14 @@
   "author": "Adam Barrell",
   "license": "ISC",
   "dependencies": {
+    "http-server": "0.8.5",
     "q": "1.4.1",
     "react": "0.14.3",
     "react-dom": "0.14.3",
     "react-redux": "4.0.3",
     "redux": "3.0.5",
     "redux-thunk": "1.0.2",
-    "http-server": "0.8.5"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "babel-core": "6.3.21",
