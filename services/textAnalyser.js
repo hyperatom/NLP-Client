@@ -109,7 +109,9 @@ export default {
 
     extractMainClause(textAnalysis) {
 
-        return 'Adam sat';
+        var sentenceTree = getSentenceTree(getFirstSentence(textAnalysis));
+
+        return getFirstNoun(sentenceTree) + ' ' + getFirstVerb(sentenceTree);
     },
 
     extractSubjectActionObject(textAnalysis) {
