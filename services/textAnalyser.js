@@ -2,6 +2,13 @@
 
 import Http from './http';
 
+var partOfSpeech = {
+    SINGULAR_NOUN:        'NN',
+    PLURAL_NOUN:          'NNS',
+    SINGULAR_PROPER_NOUN: 'NNP',
+    PLURAL_PROPER_NOUN:   'NNPS'
+};
+
 function getFirstSentence(textAnalysis) {
 
     var sentence = textAnalysis.data.document.sentences.sentence;
@@ -41,31 +48,62 @@ function getWordsOfType(tree, type) {
     return children;
 }
 
-function getWordOfType(sentenceTree, type, index) {
+function getPartOfSpeech(sentenceTree, type, index) {
 
     var words = getWordsOfType(sentenceTree, type);
 
     if (words && words.length > index) {
 
-        return words[index].word;
+        return words[index];
     }
 
     return '';
 }
 
+function getFirstOccurringNoun(nounTypes) {
+
+    var firstNoun = {};
+
+    for (var noun in nounTypes) {
+
+        if (nounTypes.hasOwnProperty(noun) && nounTypes[noun]) {
+
+            if (!firstNoun.id) {
+
+                firstNoun = nounTypes[noun];
+
+            } else if (nounTypes[noun].id < firstNoun.id) {
+
+                firstNoun = nounTypes[noun];
+            }
+        }
+    }
+
+    return firstNoun;
+}
+
 function getFirstNoun(sentenceTree) {
 
-    return getWordOfType(sentenceTree, 'NN', 0);
+    var nouns = {
+        singular:       getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_NOUN, 0),
+        plural:         getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_NOUN, 0),
+        singularProper: getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_PROPER_NOUN, 0),
+        pluralProper:   getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_PROPER_NOUN, 0)
+    };
+
+    var firstNoun = getFirstOccurringNoun(nouns);
+
+    return firstNoun.word || '';
 }
 
 function getFirstVerb(sentenceTree) {
 
-    return getWordOfType(sentenceTree, 'VBD', 0);
+    return getPartOfSpeech(sentenceTree, 'VBD', 0).word;
 }
 
 function getSecondNoun(sentenceTree) {
 
-    return getWordOfType(sentenceTree, 'NN', 1);
+    return getPartOfSpeech(sentenceTree, 'NN', 1).word;
 }
 
 export default {
@@ -82,8 +120,6 @@ export default {
     extractSubjectActionObject(textAnalysis) {
 
         var sentenceTree = getSentenceTree(getFirstSentence(textAnalysis));
-
-        console.log('sentenceTree', sentenceTree);
 
         return {
             subject: getFirstNoun(sentenceTree),
