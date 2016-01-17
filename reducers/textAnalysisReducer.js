@@ -4,6 +4,7 @@ var defaultState = {
     searchText: '',
     isAnalysing: false,
     hasAnalysed: false,
+    mainClause: null,
     subject: null,
     action: null,
     object: null

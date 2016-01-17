@@ -37,23 +37,36 @@ export default class TextAnalysis extends React.Component {
             }
 
             return (
-                <article style={ style.section }>
+                <div>
 
-                    <div style={ style.sentencePart }>
-                        <span style={ style.sentencePartKey }>Subject</span>
-                        <span style={ style.sentencePartValue }>{ this.props.subject }</span>
-                    </div>
+                    <article style={ style.section }>
 
-                    <div style={ style.sentencePart }>
-                        <span style={ style.sentencePartKey }>Action</span>
-                        <span style={ style.sentencePartValue }>{ this.props.action }</span>
-                    </div>
+                        <div style={ style.sentencePart }>
+                            <span style={ style.sentencePartKey }>Subject</span>
+                            <span style={ style.sentencePartValue }>{ this.props.subject }</span>
+                        </div>
 
-                    <div style={ style.sentencePart }>
-                        <span style={ style.sentencePartKey }>Object</span>
-                        <span style={ style.sentencePartValue }>{ this.props.object }</span>
-                    </div>
-                </article>
+                        <div style={ style.sentencePart }>
+                            <span style={ style.sentencePartKey }>Action</span>
+                            <span style={ style.sentencePartValue }>{ this.props.action }</span>
+                        </div>
+
+                        <div style={ style.sentencePart }>
+                            <span style={ style.sentencePartKey }>Object</span>
+                            <span style={ style.sentencePartValue }>{ this.props.object }</span>
+                        </div>
+                    </article>
+
+                    <article style={ style.section }>
+
+                        <div style={ style.sentencePart }>
+                            <span style={ style.sentencePartKey }>Main Clause</span>
+                            <span style={ style.sentencePartValue }>{ this.props.mainClause }</span>
+                        </div>
+
+                    </article>
+
+                </div>
             )
         }
 

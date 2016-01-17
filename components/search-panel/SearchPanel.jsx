@@ -12,14 +12,7 @@ import { connect } from 'react-redux';
 
 var mapStateToProps = function(state) {
 
-    return {
-        searchText:   state.searchText,
-        isAnalysing:  state.isAnalysing,
-        hasAnalysed:  state.hasAnalysed,
-        subject:      state.subject,
-        action:       state.action,
-        object:       state.object
-    };
+    return state;
 };
 
 var mapDispatchToProps = function(dispatch) {
@@ -78,8 +71,9 @@ class SearchPanel extends React.Component {
                 <SearchBox onChange={ this.props.textChanged } />
                 <SearchButton onClick={ this.props.analyseText }  />
 
-                <TextAnalysis hasAnalysed={ this.props.hasAnalysed}
-                              subject={ this.props.subject}
+                <TextAnalysis hasAnalysed={ this.props.hasAnalysed }
+                              mainClause="cat ate"
+                              subject={ this.props.subject }
                               action={ this.props.action }
                               object={ this.props.object } />
 
