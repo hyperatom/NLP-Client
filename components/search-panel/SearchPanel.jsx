@@ -26,9 +26,15 @@ var mapDispatchToProps = function(dispatch) {
                 TextAnalyzer.analyse(getState().searchText)
                     .then((data) => {
 
-                        var sao = TextAnalyzer.extractSubjectActionObject(data);
+                        var sao        = TextAnalyzer.extractSubjectActionObject(data),
+                            mainClause = TextAnalyzer.extractMainClause(data);
 
-                        return thunkDispatch({
+                        thunkDispatch({
+                            type: 'SET_MAIN_CLAUSE',
+                            mainClause: mainClause
+                        });
+
+                        thunkDispatch({
                             type: 'SET_SAO',
                             subject: sao.subject,
                             action: sao.action,
@@ -72,7 +78,7 @@ class SearchPanel extends React.Component {
                 <SearchButton onClick={ this.props.analyseText }  />
 
                 <TextAnalysis hasAnalysed={ this.props.hasAnalysed }
-                              mainClause="cat ate"
+                              mainClause={ this.props.mainClause }
                               subject={ this.props.subject }
                               action={ this.props.action }
                               object={ this.props.object } />

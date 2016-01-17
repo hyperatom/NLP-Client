@@ -107,6 +107,11 @@ export default {
         return Http.get('http://localhost:8990', data);
     },
 
+    extractMainClause(textAnalysis) {
+
+        return 'Adam sat';
+    },
+
     extractSubjectActionObject(textAnalysis) {
 
         var sentenceTree = getSentenceTree(getFirstSentence(textAnalysis));

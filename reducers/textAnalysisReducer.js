@@ -14,6 +14,14 @@ export default function(state = defaultState, action) {
 
     switch (action.type) {
 
+        case 'SET_MAIN_CLAUSE':
+
+            return Object.assign({}, state, {
+                mainClause: action.mainClause,
+                isAnalysing: false,
+                hasAnalysed: true
+            });
+
         case 'SET_SAO':
 
             return Object.assign({}, state, {
