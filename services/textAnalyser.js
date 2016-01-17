@@ -60,7 +60,7 @@ function getPartOfSpeech(sentenceTree, type, index) {
     return '';
 }
 
-function getFirstOccurringNoun(nounTypes) {
+function getFirstOccurringNounType(nounTypes) {
 
     var firstNoun = {};
 
@@ -82,16 +82,20 @@ function getFirstOccurringNoun(nounTypes) {
     return firstNoun;
 }
 
-function getFirstNoun(sentenceTree) {
+function getFirstNounOfAllTypes(sentenceTree) {
 
-    var nouns = {
+    return {
         singular:       getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_NOUN, 0),
         plural:         getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_NOUN, 0),
         singularProper: getPartOfSpeech(sentenceTree, partOfSpeech.SINGULAR_PROPER_NOUN, 0),
         pluralProper:   getPartOfSpeech(sentenceTree, partOfSpeech.PLURAL_PROPER_NOUN, 0)
     };
+}
 
-    var firstNoun = getFirstOccurringNoun(nouns);
+function getFirstNoun(sentenceTree) {
+
+    var firstNouns = getFirstNounOfAllTypes(sentenceTree),
+        firstNoun  = getFirstOccurringNounType(firstNouns);
 
     return firstNoun.word || '';
 }
