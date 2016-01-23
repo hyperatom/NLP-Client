@@ -4,6 +4,7 @@ import React        from 'react';
 import SearchBox    from '../search-box/SearchBox';
 import SearchButton from '../search-button/SearchButton';
 import TextAnalysis from '../text-analysis/TextAnalysis';
+import TextComposer from '../TextComposer';
 import style        from './style';
 
 import TextAnalyzer from '../../services/textAnalyser';
@@ -69,6 +70,8 @@ class SearchPanel extends React.Component {
                 <h1 style={ style.sectionTitle }>
                     Subject Action Object
                 </h1>
+
+                <TextComposer />
 
                 <p style={ style.sectionIntro }>
                     Enter a simple sentence and click <span style={ style.actionText }>analyse</span>.
