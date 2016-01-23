@@ -17,6 +17,7 @@
     "node-sass": "3.4.2",
     "q": "1.4.1",
     "react": "0.14.3",
+    "react-contenteditable": "1.1.0",
     "react-css-modules": "3.6.8",
     "react-dom": "0.14.3",
     "react-redux": "4.0.3",

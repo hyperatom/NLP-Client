@@ -1,8 +1,6 @@
 'use strict';
 
 import React        from 'react';
-import SearchBox    from '../search-box/SearchBox';
-import SearchButton from '../search-button/SearchButton';
 import TextAnalysis from '../text-analysis/TextAnalysis';
 import TextComposer from '../TextComposer';
 import style        from './style';
@@ -20,11 +18,11 @@ var mapDispatchToProps = function(dispatch) {
 
     return {
 
-        analyseText() {
+        textChanged(composerHtml) {
 
-            return dispatch((thunkDispatch, getState) => {
+            return dispatch((thunkDispatch) => {
 
-                TextAnalyzer.analyse(getState().searchText)
+                TextAnalyzer.analyse(composerHtml)
                     .then((data) => {
 
                         var sao        = TextAnalyzer.extractSubjectActionObject(data),
@@ -43,18 +41,10 @@ var mapDispatchToProps = function(dispatch) {
                         });
                     });
 
-                return thunkDispatch({
-                    type: 'ANALYSE_TEXT',
-                    isAnalysing: true
+                dispatch({
+                    type: 'TEXT_CHANGED',
+                    composerHtml: composerHtml
                 });
-            });
-        },
-
-        textChanged(text) {
-
-            return dispatch({
-                type: 'TEXT_CHANGED',
-                text: text
             });
         }
     };
@@ -67,25 +57,15 @@ class SearchPanel extends React.Component {
         return (
             <article style={ style.section }>
 
-                <h1 style={ style.sectionTitle }>
-                    Subject Action Object
-                </h1>
+                <TextComposer composerHtml={ this.props.composerHtml }
+                              textChanged={ this.props.textChanged } />
 
-                <TextComposer />
-
-                <p style={ style.sectionIntro }>
-                    Enter a simple sentence and click <span style={ style.actionText }>analyse</span>.
-                </p>
-
-                <SearchBox onChange={ this.props.textChanged } />
-                <SearchButton onClick={ this.props.analyseText }  />
 
                 <TextAnalysis hasAnalysed={ this.props.hasAnalysed }
                               mainClause={ this.props.mainClause }
                               subject={ this.props.subject }
                               action={ this.props.action }
                               object={ this.props.object } />
-
             </article>
         )
     }

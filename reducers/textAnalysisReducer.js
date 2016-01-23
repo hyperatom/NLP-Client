@@ -1,7 +1,7 @@
 'use strict';
 
 var defaultState = {
-    searchText: '',
+    composerHtml: '',
     isAnalysing: false,
     hasAnalysed: false,
     mainClause: null,
@@ -35,13 +35,8 @@ export default function(state = defaultState, action) {
         case 'TEXT_CHANGED':
 
             return Object.assign({}, state, {
-                searchText: action.text
-            });
-
-        case 'ANALYSE_TEXT':
-
-            return Object.assign({}, state, {
-                isAnalysing: true
+                isAnalysing: true,
+                composerHtml: action.composerHtml
             });
 
         default:
