@@ -1,6 +1,6 @@
 
 module.exports = {
-    entry: './index.jsx',
+    entry: './index.js',
     output: {
         path: './assets',
         filename: 'bundle.js',
@@ -9,11 +9,7 @@ module.exports = {
     module: {
         loaders: [
             {
-                test: /\.(js|jsx)$/,
-                loader: 'jsx-loader?insertPragma=React.DOM&harmony'
-            },
-            {
-                test: /.jsx?$/,
+                test: /.(js|jsx)$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
                 query: {
