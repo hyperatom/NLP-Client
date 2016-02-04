@@ -2,40 +2,28 @@
 
 var defaultState = {
     composerHtml: '',
-    isAnalysing: false,
-    hasAnalysed: false,
-    mainClause: null,
-    subject: null,
-    action: null,
-    object: null
+    isAnalysing: false
 };
 
 export default function(state = defaultState, action) {
 
     switch (action.type) {
 
-        case 'SET_MAIN_CLAUSE':
+        case 'ANALYSING_TEXT':
 
             return Object.assign({}, state, {
-                mainClause: action.mainClause,
-                isAnalysing: false,
-                hasAnalysed: true
+                isAnalysing: action.isAnalysing
             });
 
-        case 'SET_SAO':
+        case 'TEXT_TAGGED':
 
             return Object.assign({}, state, {
-                subject: action.subject,
-                action: action.action,
-                object: action.object,
-                isAnalysing: false,
-                hasAnalysed: true
+                composerHtml: action.composerHtml
             });
 
         case 'TEXT_CHANGED':
 
             return Object.assign({}, state, {
-                isAnalysing: true,
                 composerHtml: action.composerHtml
             });
 
