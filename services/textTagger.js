@@ -5,17 +5,30 @@ import textAnalyser from './textAnalyser';
 
 export default {
 
-    _markupToText(markup) {
+    _createContainerElem(markup) {
 
-        return markup.replace(/<.*>/g, '');
+        var divElem = document.createElement('div');
+
+        divElem.innerHTML = markup;
+
+        return divElem;
+    },
+
+    _extractMarkupText(elem) {
+
+        return elem.textContent;
     },
 
     tag(markup) {
 
         var defer = q.defer();
 
-        textAnalyser.analyse('testing')
-            .then(() => {
+        var elem = this._createContainerElem(markup);
+
+        textAnalyser.analyse(this._extractMarkupText(elem))
+            .then((analysedText) => {
+
+                console.log(analysedText);
 
                 var newMarkup = '<p>' + markup + '</p>';
 

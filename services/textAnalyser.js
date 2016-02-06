@@ -105,23 +105,5 @@ export default {
         };
 
         return Http.get('http://nlp.adambarrell.co.uk:8990', data);
-    },
-
-    extractMainClause(textAnalysis) {
-
-        var sentenceTree = getSentenceTree(getFirstSentence(textAnalysis));
-
-        return getFirstNoun(sentenceTree) + ' ' + getFirstVerb(sentenceTree);
-    },
-
-    extractSubjectActionObject(textAnalysis) {
-
-        var sentenceTree = getSentenceTree(getFirstSentence(textAnalysis));
-
-        return {
-            subject: getFirstNoun(sentenceTree),
-            action: getFirstVerb(sentenceTree),
-            object: getSecondNoun(sentenceTree)
-        }
     }
 }

@@ -24,9 +24,8 @@ class TextComposer extends React.Component {
 
             if (node !== undefined) {
 
-                console.log('focusing');
                 node.focus();
-                console.log(node);
+
                 _this._setEndOfContenteditable(node);
             }
         });
