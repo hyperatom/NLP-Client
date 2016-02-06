@@ -55,3 +55,8 @@ table {
 input {
     box-sizing: border-box;
 }
+
+.np {
+    color: red;
+    text-decoration: underline;
+}

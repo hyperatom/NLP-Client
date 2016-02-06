@@ -4,6 +4,7 @@ import Http from './http';
 import _    from 'underscore';
 
 var partOfSpeech = {
+    NOUN_PHRASE:          'NP',
     SINGULAR_NOUN:        'NN',
     PLURAL_NOUN:          'NNS',
     SINGULAR_PROPER_NOUN: 'NNP',
@@ -25,6 +26,26 @@ function getFirstSentence(textAnalysis) {
 function getSentenceTree(sentenceAnalysis) {
 
     return sentenceAnalysis.parsedTree.children[0];
+}
+
+function getNodesOfType(tree, type) {
+
+    var nodes = [];
+
+    if (tree.type && tree.type === type) {
+
+        nodes.push(tree);
+    }
+
+    if (tree.children && tree.children.length > 0) {
+
+        for (var i = 0; i < tree.children.length; i++) {
+
+            nodes = nodes.concat(getNodesOfType(tree.children[i], type));
+        }
+    }
+
+    return nodes;
 }
 
 function getWordsOfType(tree, type) {
@@ -96,6 +117,47 @@ function getSecondNoun(sentenceTree) {
     return allNouns[1].word || '';
 }
 
+function getFirstWord(tree) {
+
+    if (tree.id) {
+
+        return tree;
+
+    } else {
+
+        return getFirstWord(tree.children[0]);
+    }
+}
+
+function getLastWord(tree) {
+
+    if (tree.id) {
+
+        return tree;
+
+    } else {
+
+        var lastIndex = tree.children.length - 1;
+
+        return getFirstWord(tree.children[lastIndex]);
+    }
+}
+
+function getPhrasePositions(nodes) {
+
+    var positions = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+
+        positions.push({
+            start: getFirstWord(nodes[i]).id - 1,
+            end: getLastWord(nodes[i]).id - 1
+        });
+    }
+
+    return positions;
+}
+
 export default {
 
     analyse(text) {
@@ -105,5 +167,14 @@ export default {
         };
 
         return Http.get('http://nlp.adambarrell.co.uk:8990', data);
+    },
+
+    extractNounPhrasePositions(textAnalysis) {
+
+        var sentenceAnalysis = getSentenceTree(getFirstSentence(textAnalysis));
+
+        var nounPhrases = getNodesOfType(sentenceAnalysis, partOfSpeech.NOUN_PHRASE);
+
+        return getPhrasePositions(nounPhrases);
     }
 }

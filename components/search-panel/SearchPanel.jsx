@@ -18,27 +18,30 @@ var mapStateToProps = function(state) {
 
 var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
 
-    dispatch({
-        type: 'ANALYSING_TEXT',
-        isAnalysing: true
-    });
+    if (composerHtml) {
 
-    dispatch((thunkDispatch) => {
+        dispatch({
+            type: 'ANALYSING_TEXT',
+            isAnalysing: true
+        });
 
-        textTagger.tag(composerHtml)
-            .then((taggedMarkup) => {
+        dispatch((thunkDispatch) => {
 
-                dispatch({
-                    type: 'ANALYSING_TEXT',
-                    isAnalysing: false
+            textTagger.tag(composerHtml)
+                .then((taggedMarkup) => {
+
+                    dispatch({
+                        type: 'ANALYSING_TEXT',
+                        isAnalysing: false
+                    });
+
+                    thunkDispatch({
+                        type: 'TEXT_TAGGED',
+                        composerHtml: taggedMarkup
+                    });
                 });
-
-                thunkDispatch({
-                    type: 'TEXT_TAGGED',
-                    composerHtml: taggedMarkup
-                });
-            });
-    });
+        });
+    }
 
 }, 1000);
 
