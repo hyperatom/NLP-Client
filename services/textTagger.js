@@ -59,6 +59,13 @@ export default {
 
             var newText = sentence.replace(/\w+/g, function(s) {
 
+                if (_this._isStartingPosition(positions[index], j) && _this._isEndingPosition(positions[index], j)) {
+
+                    j++;
+
+                    return '<span class="' + className + '">' + s + '</span>';
+                }
+
                 if (_this._isStartingPosition(positions[index], j)) {
 
                     j++;
@@ -108,8 +115,6 @@ export default {
 
             defer.resolve('');
         }
-
-
 
         return defer.promise;
     }
