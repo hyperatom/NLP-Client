@@ -2,8 +2,11 @@
 
 import React        from 'react';
 import TextAnalysis from '../text-analysis/TextAnalysis';
-import TextComposer from '../TextComposer';
-import style        from './style';
+
+import TextComposer  from '../TextComposer';
+import AnalysisModes from '../AnalysisModes';
+
+import style from './style';
 
 import textTagger   from '../../services/textTagger';
 
@@ -65,6 +68,8 @@ class SearchPanel extends React.Component {
 
         return (
             <article style={ style.section }>
+
+                <AnalysisModes />
 
                 <TextComposer composerHtml={ this.props.composerHtml }
                               textChanged={ this.props.textChanged }
