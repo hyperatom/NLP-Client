@@ -1,7 +1,10 @@
 .composer {
-  width: 100%;
-  font-size: 55px;
-  background-color: lightblue;
+  width: auto;
+  min-height: 500px;
+  font-size: 30px;
+  line-height: 2.5em;
+  padding: 10px;
+  background-color: #fff6dc;
 
   &:hover {
     cursor: text;
