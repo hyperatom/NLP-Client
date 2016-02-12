@@ -15,7 +15,7 @@ class AnalysisModes extends React.Component {
                        id="noun-phrase"
                        type="radio" />
 
-                <label className="np" styleName="label">
+                <label styleName="label">
                     Noun Phrases
                 </label>
 
