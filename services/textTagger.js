@@ -1,5 +1,6 @@
 
 import q from 'q';
+import _ from 'underscore';
 
 import textAnalyser from './textAnalyser';
 
@@ -45,35 +46,42 @@ export default {
         return false;
     },
 
-    _getStartPositionMarkup(positions) {
-
-        return '';
-    },
-
     _applyTags(text, positions, className) {
 
-        var _this = this, j = 0;
+        var _this      = this,
+            taggedText = '';
 
-        return text.replace(/\w+/g, function(s) {
+        var sentences = text.split(/(?=[.])/);
 
-            if (_this._isStartingPosition(positions, j)) {
+        _.each(sentences, (sentence, index) => {
+
+            var j = 0;
+
+            var newText = sentence.replace(/\w+/g, function(s) {
+
+                if (_this._isStartingPosition(positions[index], j)) {
+
+                    j++;
+
+                    return '<span class="' + className + '">' + s;
+                }
+
+                if (_this._isEndingPosition(positions[index], j)) {
+
+                    j++;
+
+                    return s + '</span>';
+                }
 
                 j++;
 
-                return '<span class="' + className + '">' + s;
-            }
+                return s;
+            });
 
-            if (_this._isEndingPosition(positions, j)) {
-
-                j++;
-
-                return s + '</span>';
-            }
-
-            j++;
-
-            return s;
+            taggedText = taggedText.concat(newText);
         });
+
+        return taggedText;
     },
 
     tag(markup) {

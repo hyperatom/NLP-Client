@@ -11,7 +11,7 @@ class AnalysisModes extends React.Component {
             <div styleName="panel">
 
                 <input styleName="radio-button"
-                       checked="true"
+                       defaultChecked
                        id="noun-phrase"
                        type="radio" />
 

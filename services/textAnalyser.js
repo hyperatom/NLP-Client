@@ -11,21 +11,16 @@ var partOfSpeech = {
     PLURAL_PROPER_NOUN:   'NNPS'
 };
 
-function getFirstSentence(textAnalysis) {
+function getSentenceTrees(textAnalysis) {
 
     var sentence = textAnalysis.data.document.sentences.sentence;
 
     if (sentence.length > 1) {
 
-        return sentence[0];
+        return _.map(sentence, s => s.parsedTree);
     }
 
-    return sentence;
-}
-
-function getSentenceTree(sentenceAnalysis) {
-
-    return sentenceAnalysis.parsedTree.children[0];
+    return [ sentence.parsedTree ];
 }
 
 function getNodesOfType(tree, type) {
@@ -171,10 +166,18 @@ export default {
 
     extractNounPhrasePositions(textAnalysis) {
 
-        var sentenceAnalysis = getSentenceTree(getFirstSentence(textAnalysis));
+        var sentenceTrees = getSentenceTrees(textAnalysis);
 
-        var nounPhrases = getNodesOfType(sentenceAnalysis, partOfSpeech.NOUN_PHRASE);
+        var sentencePhrasePositions = [];
 
-        return getPhrasePositions(nounPhrases);
+        _.each(sentenceTrees, (tree) => {
+
+            var nounPhrases     = getNodesOfType(tree, partOfSpeech.NOUN_PHRASE),
+                phrasePositions = getPhrasePositions(nounPhrases);
+
+            sentencePhrasePositions.push(phrasePositions);
+        });
+
+        return sentencePhrasePositions;
     }
 }
