@@ -71,6 +71,19 @@ var mapDispatchToProps = function(dispatch) {
 
 class SearchPanel extends React.Component {
 
+    componentDidMount() {
+
+        window.addEventListener('keydown', function (e) {
+
+            if (e.code === 'Backspace' &&
+                !e.target.getAttribute('contenteditable')) {
+
+                e.preventDefault();
+            }
+
+        }, false);
+    }
+
     render() {
 
         return (
