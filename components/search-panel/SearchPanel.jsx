@@ -48,7 +48,7 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
             });
     });
 
-}, 1000);
+}, 500);
 
 var mapDispatchToProps = function(dispatch) {
 
