@@ -37,12 +37,14 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
                     isAnalysing: false
                 });
 
-                setTimeout(() => { phraseAnnotator.showAnnotations('np') }, 0);
+                setTimeout(() => { phraseAnnotator.showAnnotations('phrase--np') }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',
                     composerHtml: taggedMarkup
                 });
+
+                textTagger.showAllTags();
             });
     });
 
@@ -59,6 +61,7 @@ var mapDispatchToProps = function(dispatch) {
                 composerHtml: composerHtml
             });
 
+            textTagger.hideAllTags();
             phraseAnnotator.hideAllAnnotations();
 
             debouncedAnalysis(dispatch, composerHtml);

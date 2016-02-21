@@ -56,7 +56,12 @@ input {
     box-sizing: border-box;
 }
 
-.np {
+.hide-tags .phrase {
+    color: black;
+    text-decoration: none;
+}
+
+.phrase--np {
     color: red;
     text-decoration: underline;
 }

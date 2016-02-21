@@ -91,6 +91,16 @@ export default {
         return taggedText;
     },
 
+    showAllTags() {
+
+        document.body.className = '';
+    },
+
+    hideAllTags() {
+
+        document.body.className = 'hide-tags';
+    },
+
     tag(markup) {
 
         var tagger = this,
@@ -106,7 +116,7 @@ export default {
 
                     var nounPhrasePositions = textAnalyser.extractNounPhrasePositions(analysedText);
 
-                    var taggedMarkup = tagger._applyTags(rawText, nounPhrasePositions, 'np');
+                    var taggedMarkup = tagger._applyTags(rawText, nounPhrasePositions, 'phrase phrase--np');
 
                     defer.resolve(taggedMarkup);
                 });
