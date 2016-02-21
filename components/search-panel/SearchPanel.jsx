@@ -8,7 +8,8 @@ import AnalysisModes from '../AnalysisModes';
 
 import style from './style';
 
-import textTagger   from '../../services/textTagger';
+import textTagger      from '../../services/textTagger';
+import phraseAnnotator from '../../services/phraseAnnotator';
 
 import { connect } from 'react-redux';
 
@@ -36,30 +37,7 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
                     isAnalysing: false
                 });
 
-                var taggedPhrases = document.getElementsByClassName('np');
-
-                setTimeout(() => {
-
-                    _.each(taggedPhrases, (taggedPhrase) => {
-
-                        var span = document.createElement('span');
-
-                        span.innerHTML = 'NOUN PHRASE';
-
-                        span.style.position = 'absolute';
-                        span.style.top = 0;
-                        span.style.left = 0;
-
-                        var elemRect = taggedPhrase.getBoundingClientRect();
-
-                        span.style.position = 'absolute';
-                        span.style.top = elemRect.top + 40 + 'px';
-                        span.style.left = elemRect.left + 'px';
-
-                        document.body.appendChild(span);
-                    });
-                }, 0);
-
+                setTimeout(() => { phraseAnnotator.showAnnotations('np') }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',
