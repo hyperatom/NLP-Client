@@ -12,6 +12,7 @@ export default {
             var span = document.createElement('span');
 
             span.innerHTML = 'NOUN PHRASE';
+            span.className = 'annotation ' + 'annotation--' + phraseType;
 
             span.style.position = 'absolute';
             span.style.top = 0;
@@ -25,5 +26,25 @@ export default {
 
             document.body.appendChild(span);
         });
+    },
+
+    hideAllAnnotations() {
+
+        var phrases = document.getElementsByClassName('annotation');
+
+        while (phrases[0]) {
+
+            phrases[0].parentNode.removeChild(phrases[0]);
+        }
+    },
+
+    hideAnnotations(phraseType) {
+
+        var phrases = document.getElementsByClassName('annotation--' + phraseType);
+
+        while (phrases[0]) {
+
+            phrases[0].parentNode.removeChild(phrases[0]);
+        }
     }
 }

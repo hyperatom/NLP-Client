@@ -59,6 +59,7 @@ var mapDispatchToProps = function(dispatch) {
                 composerHtml: composerHtml
             });
 
+            phraseAnnotator.hideAllAnnotations();
 
             debouncedAnalysis(dispatch, composerHtml);
         }
