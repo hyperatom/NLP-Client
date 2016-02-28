@@ -29,9 +29,6 @@ module.exports = {
             allChunks: true
         })
     ],
-    externals: {
-        'react': 'React'
-    },
     resolve: {
         extensions: ['', '.js', '.jsx']
     }
