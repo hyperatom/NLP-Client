@@ -1,7 +1,6 @@
 'use strict';
 
-import React        from 'react';
-import TextAnalysis from '../text-analysis/TextAnalysis';
+import React from 'react';
 
 import TextComposer  from '../TextComposer';
 import AnalysisModes from '../AnalysisModes';
@@ -14,11 +13,6 @@ import phraseAnnotator from '../../services/phraseAnnotator';
 import { connect } from 'react-redux';
 
 import _ from 'underscore';
-
-var mapStateToProps = function(state) {
-
-    return state;
-};
 
 var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
 
@@ -50,25 +44,6 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
 
 }, 1000);
 
-var mapDispatchToProps = function(dispatch) {
-
-    return {
-
-        textChanged(composerHtml) {
-
-            dispatch({
-                type: 'TEXT_CHANGED',
-                composerHtml: composerHtml
-            });
-
-            textTagger.hideAllTags();
-            phraseAnnotator.hideAllAnnotations();
-
-            debouncedAnalysis(dispatch, composerHtml);
-        }
-    };
-};
-
 class SearchPanel extends React.Component {
 
     componentDidMount() {
@@ -89,7 +64,10 @@ class SearchPanel extends React.Component {
         return (
             <article style={ style.section }>
 
-                <AnalysisModes />
+                <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
+                               nounPhraseChecked={ this.props.nounPhraseChecked }
+                               isSubordinateClauseChecked={ this.props.isSubordinateClauseChecked }
+                               subordinateClauseChecked={ this.props.subordinateClauseChecked } />
 
                 <TextComposer composerHtml={ this.props.composerHtml }
                               textChanged={ this.props.textChanged }
@@ -98,6 +76,44 @@ class SearchPanel extends React.Component {
             </article>
         )
     }
+}
+
+function mapStateToProps(state) {
+
+    return state;
+}
+
+function mapDispatchToProps(dispatch) {
+
+    return {
+
+        textChanged(composerHtml) {
+
+            dispatch({
+                type: 'TEXT_CHANGED',
+                composerHtml: composerHtml
+            });
+
+            textTagger.hideAllTags();
+            phraseAnnotator.hideAllAnnotations();
+
+            debouncedAnalysis(dispatch, composerHtml);
+        },
+
+        nounPhraseChecked() {
+
+            dispatch({
+                type: 'NOUN_PHRASE_CHECKED'
+            });
+        },
+
+        subordinateClauseChecked() {
+
+            dispatch({
+                type: 'SUBORDINATE_CLAUSE_CHECKED'
+            });
+        }
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPanel);

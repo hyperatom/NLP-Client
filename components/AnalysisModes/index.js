@@ -10,14 +10,33 @@ class AnalysisModes extends React.Component {
         return (
             <div styleName="panel">
 
-                <input styleName="radio-button"
-                       defaultChecked
-                       id="noun-phrase"
-                       type="radio" />
+                <div styleName="input-group">
 
-                <label styleName="label">
-                    Noun Phrases
-                </label>
+                    <input styleName="radio-button"
+                           checked={ this.props.isNounPhraseChecked }
+                           onChange={ this.props.nounPhraseChecked }
+                           id="noun-phrase"
+                           type="radio" />
+
+                    <label styleName="label" for="noun-phrase">
+                        Noun Phrases
+                    </label>
+
+                </div>
+
+                <div styleName="input-group">
+
+                    <input styleName="radio-button"
+                           checked={ this.props.isSubordinateClauseChecked }
+                           onChange={ this.props.subordinateClauseChecked }
+                           id="subordinate-clause"
+                           type="radio" />
+
+                    <label styleName="label" for="subordinate-clause">
+                        Subordinate Clauses
+                    </label>
+
+                </div>
 
             </div>
         )

@@ -2,7 +2,9 @@
 
 var defaultState = {
     composerHtml: '',
-    isAnalysing: false
+    isAnalysing: false,
+    isNounPhraseChecked: true,
+    isSubordinateClauseChecked: false
 };
 
 export default function(state = defaultState, action) {
@@ -25,6 +27,20 @@ export default function(state = defaultState, action) {
 
             return Object.assign({}, state, {
                 composerHtml: action.composerHtml
+            });
+
+        case 'NOUN_PHRASE_CHECKED':
+
+            return Object.assign({}, state, {
+                isNounPhraseChecked: true,
+                isSubordinateClauseChecked: false
+            });
+
+        case 'SUBORDINATE_CLAUSE_CHECKED':
+
+            return Object.assign({}, state, {
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: true
             });
 
         default:
