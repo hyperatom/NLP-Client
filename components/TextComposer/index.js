@@ -18,6 +18,31 @@ class TextComposer extends React.Component {
 
         var _this = this;
 
+        (function() {
+            var lastTime = 0;
+            var vendors = ['webkit', 'moz'];
+            for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+                window.cancelAnimationFrame =
+                    window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+            }
+
+            if (!window.requestAnimationFrame)
+                window.requestAnimationFrame = function(callback, element) {
+                    var currTime = new Date().getTime();
+                    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                    var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+                        timeToCall);
+                    lastTime = currTime + timeToCall;
+                    return id;
+                };
+
+            if (!window.cancelAnimationFrame)
+                window.cancelAnimationFrame = function(id) {
+                    clearTimeout(id);
+                };
+        }());
+
         window.requestAnimationFrame(function() {
 
             var node = ReactDOM.findDOMNode(_this);
@@ -35,7 +60,7 @@ class TextComposer extends React.Component {
 
         var range,selection;
 
-        if(document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
+        if (document.createRange)//Firefox, Chrome, Opera, Safari, IE 9+
         {
             range = document.createRange();//Create a range (a range is a like the selection but invisible)
             range.selectNodeContents(contentEditableElement);//Select the entire contents of the element with the range
@@ -44,7 +69,7 @@ class TextComposer extends React.Component {
             selection.removeAllRanges();//remove any selections already made
             selection.addRange(range);//make the range you have just created the visible selection
         }
-        else if(document.selection)//IE 8 and lower
+        else if (document.selection)//IE 8 and lower
         {
             range = document.body.createTextRange();//Create a range (a range is a like the selection but invisible)
             range.moveToElementText(contentEditableElement);//Select the entire contents of the element with the range

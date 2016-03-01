@@ -4,7 +4,11 @@ import q from 'q';
 
 function createRequest() {
 
-    if (window.XMLHttpRequest) {
+    if (window.XDomainRequest) {
+
+        return new XDomainRequest();
+
+    } else if (window.XMLHttpRequest) {
 
         return new XMLHttpRequest();
 
@@ -69,7 +73,10 @@ function resolvePromiseOnResponse(defered, request) {
 
 function attachHeaders(request) {
 
-    request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    if (!window.XDomainRequest) {
+
+        request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    }
 }
 
 function sendRequest() {
