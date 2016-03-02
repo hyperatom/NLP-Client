@@ -134,7 +134,7 @@ function getLastWord(tree) {
 
         var lastIndex = tree.children.length - 1;
 
-        return getFirstWord(tree.children[lastIndex]);
+        return getLastWord(tree.children[lastIndex]);
     }
 }
 
@@ -164,7 +164,7 @@ export default {
         return Http.get('http://nlp.adambarrell.co.uk:8990', data);
     },
 
-    extractNounPhrasePositions(textAnalysis) {
+    extractPhrasePositions(textAnalysis, phraseType) {
 
         var sentenceTrees = getSentenceTrees(textAnalysis);
 
@@ -172,7 +172,7 @@ export default {
 
         _.each(sentenceTrees, (tree) => {
 
-            var nounPhrases     = getNodesOfType(tree, partOfSpeech.NOUN_PHRASE),
+            var nounPhrases     = getNodesOfType(tree, phraseType),
                 phrasePositions = getPhrasePositions(nounPhrases);
 
             sentencePhrasePositions.push(phrasePositions);

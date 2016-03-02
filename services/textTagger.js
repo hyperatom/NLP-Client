@@ -101,7 +101,7 @@ export default {
         document.body.className = 'hide-tags';
     },
 
-    tag(markup) {
+    tag(markup, activePhraseTag) {
 
         var tagger = this,
             defer  = q.defer();
@@ -114,9 +114,11 @@ export default {
             textAnalyser.analyse(rawText)
                 .then((analysedText) => {
 
-                    var nounPhrasePositions = textAnalyser.extractNounPhrasePositions(analysedText);
+                    console.log(analysedText);
 
-                    var taggedMarkup = tagger._applyTags(rawText, nounPhrasePositions, 'phrase phrase--np');
+                    var phrasePositions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTag);
+
+                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--np');
 
                     defer.resolve(taggedMarkup);
                 });

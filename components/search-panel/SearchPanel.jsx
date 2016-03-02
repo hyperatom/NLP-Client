@@ -21,9 +21,9 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
         isAnalysing: true
     });
 
-    dispatch((thunkDispatch) => {
+    dispatch((thunkDispatch, getState) => {
 
-        textTagger.tag(composerHtml)
+        textTagger.tag(composerHtml, getState().activePhraseTag)
             .then((taggedMarkup) => {
 
                 dispatch({
@@ -84,6 +84,8 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+
+    console.log('arguments', arguments);
 
     return {
 

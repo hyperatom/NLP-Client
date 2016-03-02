@@ -18,7 +18,7 @@ class AnalysisModes extends React.Component {
                            id="noun-phrase"
                            type="radio" />
 
-                    <label styleName="label" for="noun-phrase">
+                    <label styleName="label">
                         Noun Phrases
                     </label>
 
@@ -32,7 +32,7 @@ class AnalysisModes extends React.Component {
                            id="subordinate-clause"
                            type="radio" />
 
-                    <label styleName="label" for="subordinate-clause">
+                    <label styleName="label">
                         Subordinate Clauses
                     </label>
 
