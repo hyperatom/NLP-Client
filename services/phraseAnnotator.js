@@ -1,18 +1,20 @@
 
 import _ from 'underscore';
 
+import phraseNames from '../constants/phraseNames';
+
 export default {
 
-    showAnnotations(phraseType) {
+    showAnnotations(activePhraseTag) {
 
-        var taggedPhrases = document.getElementsByClassName(phraseType);
+        var taggedPhrases = document.getElementsByClassName('phrase--' + activePhraseTag.toLowerCase());
 
         _.each(taggedPhrases, (taggedPhrase) => {
 
             var span = document.createElement('span');
 
-            span.innerHTML = 'NOUN PHRASE';
-            span.className = 'annotation ' + 'annotation--' + phraseType;
+            span.innerHTML = phraseNames[activePhraseTag];
+            span.className = 'annotation ' + 'annotation--' + activePhraseTag.toLowerCase();
 
             span.style.position = 'absolute';
             span.style.top = 0;

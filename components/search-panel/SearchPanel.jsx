@@ -31,7 +31,7 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
                     isAnalysing: false
                 });
 
-                setTimeout(() => { phraseAnnotator.showAnnotations('phrase--np') }, 0);
+                setTimeout(() => { phraseAnnotator.showAnnotations(getState().activePhraseTag) }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',
@@ -84,8 +84,6 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-
-    console.log('arguments', arguments);
 
     return {
 

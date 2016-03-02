@@ -114,11 +114,9 @@ export default {
             textAnalyser.analyse(rawText)
                 .then((analysedText) => {
 
-                    console.log(analysedText);
-
                     var phrasePositions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTag);
 
-                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--np');
+                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--' + activePhraseTag.toLowerCase());
 
                     defer.resolve(taggedMarkup);
                 });

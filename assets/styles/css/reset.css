@@ -65,3 +65,8 @@ input {
     color: red;
     text-decoration: underline;
 }
+
+.phrase--sbar {
+    color: purple;
+    text-decoration: underline;
+}
