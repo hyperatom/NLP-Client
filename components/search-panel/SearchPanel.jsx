@@ -14,7 +14,10 @@ import { connect } from 'react-redux';
 
 import _ from 'underscore';
 
-var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
+var analyseOnTextChanged = _.debounce(tagHtml, 1000);
+var analyseOnModeChanged = _.debounce(tagHtml, 500);
+
+function tagHtml(dispatch) {
 
     dispatch({
         type: 'ANALYSING_TEXT',
@@ -23,15 +26,17 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
 
     dispatch((thunkDispatch, getState) => {
 
-        textTagger.tag(composerHtml, getState().activePhraseTag)
+        var activePhraseTag = getState().activePhraseTag;
+
+        textTagger.tag(getState().composerHtml, activePhraseTag)
             .then((taggedMarkup) => {
 
-                dispatch({
+                thunkDispatch({
                     type: 'ANALYSING_TEXT',
                     isAnalysing: false
                 });
 
-                setTimeout(() => { phraseAnnotator.showAnnotations(getState().activePhraseTag) }, 0);
+                setTimeout(() => { phraseAnnotator.showAnnotations(activePhraseTag) }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',
@@ -41,8 +46,13 @@ var debouncedAnalysis = _.debounce(function(dispatch, composerHtml) {
                 textTagger.showAllTags();
             });
     });
+}
 
-}, 1000);
+function hideTagsAndAnnotations() {
+
+    textTagger.hideAllTags();
+    phraseAnnotator.hideAllAnnotations();
+}
 
 class SearchPanel extends React.Component {
 
@@ -94,10 +104,9 @@ function mapDispatchToProps(dispatch) {
                 composerHtml: composerHtml
             });
 
-            textTagger.hideAllTags();
-            phraseAnnotator.hideAllAnnotations();
+            hideTagsAndAnnotations();
 
-            debouncedAnalysis(dispatch, composerHtml);
+            analyseOnTextChanged(dispatch);
         },
 
         nounPhraseChecked() {
@@ -105,6 +114,10 @@ function mapDispatchToProps(dispatch) {
             dispatch({
                 type: 'NOUN_PHRASE_CHECKED'
             });
+
+            hideTagsAndAnnotations();
+
+            analyseOnModeChanged(dispatch);
         },
 
         subordinateClauseChecked() {
@@ -112,6 +125,10 @@ function mapDispatchToProps(dispatch) {
             dispatch({
                 type: 'SUBORDINATE_CLAUSE_CHECKED'
             });
+
+            hideTagsAndAnnotations();
+
+            analyseOnModeChanged(dispatch);
         }
     };
 }
