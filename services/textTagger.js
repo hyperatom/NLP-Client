@@ -6,6 +6,18 @@ import textAnalyser from './textAnalyser';
 
 export default {
 
+    _extractSentenceStructuresAsStrings(textAnalysis) {
+
+        if (textAnalysis.data.document.sentences.sentence.parse) {
+
+            return [ textAnalysis.data.document.sentences.sentence.parse ];
+        }
+
+        return textAnalysis.data.document.sentences.sentence.map((sentence) => {
+            return sentence.parse;
+        })
+    },
+
     _createContainerElem(markup) {
 
         var divElem = document.createElement('div');
@@ -114,16 +126,24 @@ export default {
             textAnalyser.analyse(rawText)
                 .then((analysedText) => {
 
+                    var sentenceStructures = tagger._extractSentenceStructuresAsStrings(analysedText);
+
                     var phrasePositions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTag);
 
                     var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--' + activePhraseTag.toLowerCase());
 
-                    defer.resolve(taggedMarkup);
+                    defer.resolve({
+                        taggedMarkup,
+                        sentenceStructures
+                    });
                 });
 
         } else {
 
-            defer.resolve('');
+            defer.resolve({
+                taggedMarkup: '',
+                sentenceStructures: []
+            });
         }
 
         return defer.promise;

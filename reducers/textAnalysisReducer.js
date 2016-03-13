@@ -4,6 +4,7 @@ import * as phraseTags from '../constants/phraseTags';
 
 var defaultState = {
     composerHtml: '',
+    sentenceTrees: [],
     isAnalysing: false,
     activePhraseTag: phraseTags.NOUN_PHRASE,
     isNounPhraseChecked: true,
@@ -23,7 +24,8 @@ export default function(state = defaultState, action) {
         case 'TEXT_TAGGED':
 
             return Object.assign({}, state, {
-                composerHtml: action.composerHtml
+                composerHtml: action.composerHtml,
+                sentenceTrees: action.sentenceTrees
             });
 
         case 'TEXT_CHANGED':

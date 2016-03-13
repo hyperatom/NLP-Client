@@ -20,5 +20,9 @@ export default {
 
     actionText: {
         fontWeight: 'bold'
+    },
+
+    sentenceTree: {
+        marginBottom: 20
     }
 };

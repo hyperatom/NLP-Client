@@ -29,7 +29,7 @@ function tagHtml(dispatch) {
         var activePhraseTag = getState().activePhraseTag;
 
         textTagger.tag(getState().composerHtml, activePhraseTag)
-            .then((taggedMarkup) => {
+            .then((tagResult) => {
 
                 thunkDispatch({
                     type: 'ANALYSING_TEXT',
@@ -40,7 +40,8 @@ function tagHtml(dispatch) {
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',
-                    composerHtml: taggedMarkup
+                    composerHtml: tagResult.taggedMarkup,
+                    sentenceTrees: tagResult.sentenceStructures
                 });
 
                 textTagger.showAllTags();
@@ -73,6 +74,12 @@ class SearchPanel extends React.Component {
 
         return (
             <article style={ style.section }>
+
+                {
+                    this.props.sentenceTrees.map((tree, index) => {
+                        return (<p key={ index } style={ style.sentenceTree }>{ tree }</p>);
+                    })
+                }
 
                 <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
                                nounPhraseChecked={ this.props.nounPhraseChecked }
