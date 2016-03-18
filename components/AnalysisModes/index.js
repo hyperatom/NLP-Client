@@ -38,6 +38,20 @@ class AnalysisModes extends React.Component {
 
                 </div>
 
+                <div styleName="input-group">
+
+                    <input styleName="radio-button"
+                           checked={ this.props.isPrepositionalPhraseChecked }
+                           onChange={ this.props.prepositionalPhraseChecked }
+                           id="subordinate-clause"
+                           type="radio" />
+
+                    <label styleName="label">
+                        Prepositional Phrases
+                    </label>
+
+                </div>
+
             </div>
         )
     }

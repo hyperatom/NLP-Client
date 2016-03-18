@@ -84,7 +84,9 @@ class SearchPanel extends React.Component {
                 <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
                                nounPhraseChecked={ this.props.nounPhraseChecked }
                                isSubordinateClauseChecked={ this.props.isSubordinateClauseChecked }
-                               subordinateClauseChecked={ this.props.subordinateClauseChecked } />
+                               subordinateClauseChecked={ this.props.subordinateClauseChecked }
+                               isPrepositionalPhraseChecked={ this.props.isPrepositionalPhraseChecked }
+                               prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked }/>
 
                 <TextComposer composerHtml={ this.props.composerHtml }
                               textChanged={ this.props.textChanged }
@@ -131,6 +133,17 @@ function mapDispatchToProps(dispatch) {
 
             dispatch({
                 type: 'SUBORDINATE_CLAUSE_CHECKED'
+            });
+
+            hideTagsAndAnnotations();
+
+            analyseOnModeChanged(dispatch);
+        },
+
+        prepositionalPhraseChecked() {
+
+            dispatch({
+                type: 'PREPOSITIONAL_PHRASE_CHECKED'
             });
 
             hideTagsAndAnnotations();

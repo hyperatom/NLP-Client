@@ -8,7 +8,8 @@ var defaultState = {
     isAnalysing: false,
     activePhraseTag: phraseTags.NOUN_PHRASE,
     isNounPhraseChecked: true,
-    isSubordinateClauseChecked: false
+    isSubordinateClauseChecked: false,
+    isPrepositionalPhraseChecked: false
 };
 
 export default function(state = defaultState, action) {
@@ -39,7 +40,8 @@ export default function(state = defaultState, action) {
             return Object.assign({}, state, {
                 activePhraseTag: phraseTags.NOUN_PHRASE,
                 isNounPhraseChecked: true,
-                isSubordinateClauseChecked: false
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: false
             });
 
         case 'SUBORDINATE_CLAUSE_CHECKED':
@@ -47,7 +49,17 @@ export default function(state = defaultState, action) {
             return Object.assign({}, state, {
                 activePhraseTag: phraseTags.SUBORDINATE_CLAUSE,
                 isNounPhraseChecked: false,
-                isSubordinateClauseChecked: true
+                isSubordinateClauseChecked: true,
+                isPrepositionalPhraseChecked: false
+            });
+
+        case 'PREPOSITIONAL_PHRASE_CHECKED':
+
+            return Object.assign({}, state, {
+                activePhraseTag: phraseTags.PREPOSITIONAL_PHRASE,
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: true
             });
 
         default:
