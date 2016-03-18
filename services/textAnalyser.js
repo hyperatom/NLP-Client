@@ -172,8 +172,8 @@ export default {
 
         _.each(sentenceTrees, (tree) => {
 
-            var nounPhrases     = getNodesOfType(tree, phraseType),
-                phrasePositions = getPhrasePositions(nounPhrases);
+            var phraseNodes     = getNodesOfType(tree, phraseType),
+                phrasePositions = getPhrasePositions(phraseNodes);
 
             sentencePhrasePositions.push(phrasePositions);
         });
