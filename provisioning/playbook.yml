@@ -17,7 +17,7 @@
       apt: update_cache=yes
 
     - name: Copy files to server
-      synchronize: src=../ dest=/nlp-client
+      synchronize: src=./ dest=/nlp-client
 
     - name: Install global Node modules
       npm: name={{ item }} global=yes
