@@ -27,6 +27,20 @@ class AnalysisModes extends React.Component {
                 <div styleName="input-group">
 
                     <input styleName="radio-button"
+                           checked={ this.props.isMainClauseChecked }
+                           onChange={ this.props.mainClauseChecked }
+                           id="main-clause"
+                           type="radio" />
+
+                    <label styleName="label">
+                        Main Clauses
+                    </label>
+
+                </div>
+
+                <div styleName="input-group">
+
+                    <input styleName="radio-button"
                            checked={ this.props.isSubordinateClauseChecked }
                            onChange={ this.props.subordinateClauseChecked }
                            id="subordinate-clause"

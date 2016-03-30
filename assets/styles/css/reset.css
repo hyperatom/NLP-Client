@@ -56,6 +56,10 @@ input {
     box-sizing: border-box;
 }
 
+.annotation {
+    font-size: 14px;
+}
+
 .hide-tags .phrase {
     color: black;
     text-decoration: none;
@@ -73,5 +77,10 @@ input {
 
 .phrase--pp {
     color: dodgerblue;
+    text-decoration: underline;
+}
+
+.phrase--s {
+    color: green;
     text-decoration: underline;
 }

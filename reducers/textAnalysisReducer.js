@@ -9,7 +9,8 @@ var defaultState = {
     activePhraseTag: phraseTags.NOUN_PHRASE,
     isNounPhraseChecked: true,
     isSubordinateClauseChecked: false,
-    isPrepositionalPhraseChecked: false
+    isPrepositionalPhraseChecked: false,
+    isMainClauseChecked: false
 };
 
 export default function(state = defaultState, action) {
@@ -41,7 +42,8 @@ export default function(state = defaultState, action) {
                 activePhraseTag: phraseTags.NOUN_PHRASE,
                 isNounPhraseChecked: true,
                 isSubordinateClauseChecked: false,
-                isPrepositionalPhraseChecked: false
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: false
             });
 
         case 'SUBORDINATE_CLAUSE_CHECKED':
@@ -50,7 +52,8 @@ export default function(state = defaultState, action) {
                 activePhraseTag: phraseTags.SUBORDINATE_CLAUSE,
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: true,
-                isPrepositionalPhraseChecked: false
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: false
             });
 
         case 'PREPOSITIONAL_PHRASE_CHECKED':
@@ -59,7 +62,18 @@ export default function(state = defaultState, action) {
                 activePhraseTag: phraseTags.PREPOSITIONAL_PHRASE,
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
-                isPrepositionalPhraseChecked: true
+                isPrepositionalPhraseChecked: true,
+                isMainClauseChecked: false
+            });
+
+        case 'MAIN_CLAUSE_CHECKED':
+
+            return Object.assign({}, state, {
+                activePhraseTag: phraseTags.MAIN_CLAUSE,
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: true
             });
 
         default:
