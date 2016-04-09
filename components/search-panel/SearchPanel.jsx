@@ -136,14 +136,26 @@ class SearchPanel extends React.Component {
         }
     }
 
+    getCorrectionPanel() {
+
+        if (this.props.isMissingCapitalLetter || this.props.isMissingFullStop) {
+
+            return (
+                <div style={ style.correctionPanel }>
+
+                    { this.getCapitalLetterWarning() }
+
+                    { this.getFullStopWarning() }
+
+                </div>
+            );
+        }
+    }
+
     render() {
 
         return (
             <article style={ style.section }>
-
-                { this.getCapitalLetterWarning() }
-
-                { this.getFullStopWarning() }
 
                 <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
                                nounPhraseChecked={ this.props.nounPhraseChecked }
@@ -153,6 +165,8 @@ class SearchPanel extends React.Component {
                                mainClauseChecked={ this.props.mainClauseChecked }
                                isPrepositionalPhraseChecked={ this.props.isPrepositionalPhraseChecked }
                                prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked } />
+
+                { this.getCorrectionPanel() }
 
                 <TextComposer composerHtml={ this.props.composerHtml }
                               textChanged={ this.props.textChanged }

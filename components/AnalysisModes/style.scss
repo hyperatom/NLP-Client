@@ -1,21 +1,24 @@
 .panel {
   padding: 10px;
   background-color: #ebebeb;
+  font-size: 20px;
 }
 
 .radio-button {
   display: inline-block;
   vertical-align: top;
   height: 15px;
-  margin: 0 10px 0 0;
+  margin-right: 15px;
 }
 
 .label {
   display: inline-block;
-  vertical-align: top;
-  line-height: 15px;
+  font-family: 'Patrick Hand', cursive;
+  color: white;
+  text-transform: uppercase;
 }
 
 .input-group {
   margin: 10px 0;
+  padding: 5px;
 }

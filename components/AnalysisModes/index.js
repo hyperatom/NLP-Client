@@ -1,16 +1,21 @@
-import React from 'React';
+import React      from 'React';
 import CSSModules from 'react-css-modules';
 
 import style from './style.scss';
 
 class AnalysisModes extends React.Component {
 
+    getInputGroupClassName(phraseCode) {
+
+        return style['input-group'] + ' mode--' + phraseCode;
+    }
+
     render() {
 
         return (
             <div styleName="panel">
 
-                <div styleName="input-group">
+                <div className={ this.getInputGroupClassName('np') }>
 
                     <input styleName="radio-button"
                            checked={ this.props.isNounPhraseChecked }
@@ -24,7 +29,7 @@ class AnalysisModes extends React.Component {
 
                 </div>
 
-                <div styleName="input-group">
+                <div className={ this.getInputGroupClassName('s') }>
 
                     <input styleName="radio-button"
                            checked={ this.props.isMainClauseChecked }
@@ -38,7 +43,7 @@ class AnalysisModes extends React.Component {
 
                 </div>
 
-                <div styleName="input-group">
+                <div className={ this.getInputGroupClassName('sbar') }>
 
                     <input styleName="radio-button"
                            checked={ this.props.isSubordinateClauseChecked }
@@ -52,7 +57,7 @@ class AnalysisModes extends React.Component {
 
                 </div>
 
-                <div styleName="input-group">
+                <div className={ this.getInputGroupClassName('pp') }>
 
                     <input styleName="radio-button"
                            checked={ this.props.isPrepositionalPhraseChecked }

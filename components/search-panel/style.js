@@ -27,10 +27,20 @@ export default {
     },
 
     correctionTip: {
-        marginBottom: 25
+        paddingBottom: 10,
+        paddingTop: 10
     },
 
     correctionTipText: {
-        marginLeft: 10
+        marginLeft: 15
+    },
+
+    correctionPanel: {
+        borderLeft: '1px solid #ebebeb',
+        borderRight: '1px solid #ebebeb',
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 10,
+        paddingRight: 10
     }
 };
