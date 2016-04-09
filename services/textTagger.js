@@ -2,7 +2,8 @@
 import q from 'q';
 import _ from 'underscore';
 
-import textAnalyser from './textAnalyser';
+import textAnalyser  from './textAnalyser';
+import textExtractor from './textExtractor';
 
 export default {
 
@@ -16,20 +17,6 @@ export default {
         return textAnalysis.data.document.sentences.sentence.map((sentence) => {
             return sentence.parse;
         })
-    },
-
-    _createContainerElem(markup) {
-
-        var divElem = document.createElement('div');
-
-        divElem.innerHTML = markup;
-
-        return divElem;
-    },
-
-    _extractMarkupText(elem) {
-
-        return elem.textContent;
     },
 
     _isStartingPosition(positions, wordIndex) {
@@ -118,8 +105,7 @@ export default {
         var tagger = this,
             defer  = q.defer();
 
-        var elem    = this._createContainerElem(markup),
-            rawText = this._extractMarkupText(elem);
+        var rawText = textExtractor.extractTextFromMarkup(markup);
 
         if (rawText) {
 

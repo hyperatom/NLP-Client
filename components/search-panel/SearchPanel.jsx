@@ -9,6 +9,8 @@ import style from './style';
 
 import textTagger      from '../../services/textTagger';
 import phraseAnnotator from '../../services/phraseAnnotator';
+import grammarChecker  from '../../services/grammarChecker';
+import textExtractor   from '../../services/textExtractor';
 
 import { connect } from 'react-redux';
 
@@ -45,14 +47,42 @@ function tagHtml(dispatch) {
                 });
 
                 textTagger.showAllTags();
+
+                var rawText = textExtractor.extractTextFromMarkup(tagResult.taggedMarkup);
+
+                if (grammarChecker.isTextMissingCapitalLetter(rawText)) {
+
+                    thunkDispatch({
+                        type: 'IS_MISSING_CAPITAL_LETTER_CHANGED',
+                        isMissingCapitalLetter: true
+                    });
+                }
+
+                if (grammarChecker.isTextMissingFullStop(rawText)) {
+
+                    thunkDispatch({
+                        type: 'IS_MISSING_FULL_STOP_CHANGED',
+                        isMissingFullStop: true
+                    });
+                }
             });
     });
 }
 
-function hideTagsAndAnnotations() {
+function hideTagsAndAnnotations(dispatch) {
 
     textTagger.hideAllTags();
     phraseAnnotator.hideAllAnnotations();
+
+    dispatch({
+        type: 'IS_MISSING_FULL_STOP_CHANGED',
+        isMissingFullStop: false
+    });
+
+    dispatch({
+        type: 'IS_MISSING_CAPITAL_LETTER_CHANGED',
+        isMissingCapitalLetter: false
+    });
 }
 
 class SearchPanel extends React.Component {
@@ -149,7 +179,7 @@ function mapDispatchToProps(dispatch) {
                 composerHtml: composerHtml
             });
 
-            hideTagsAndAnnotations();
+            hideTagsAndAnnotations(dispatch);
 
             analyseOnTextChanged(dispatch);
         },
@@ -160,7 +190,7 @@ function mapDispatchToProps(dispatch) {
                 type: 'NOUN_PHRASE_CHECKED'
             });
 
-            hideTagsAndAnnotations();
+            hideTagsAndAnnotations(dispatch);
 
             analyseOnModeChanged(dispatch);
         },
@@ -171,7 +201,7 @@ function mapDispatchToProps(dispatch) {
                 type: 'SUBORDINATE_CLAUSE_CHECKED'
             });
 
-            hideTagsAndAnnotations();
+            hideTagsAndAnnotations(dispatch);
 
             analyseOnModeChanged(dispatch);
         },
@@ -182,7 +212,7 @@ function mapDispatchToProps(dispatch) {
                 type: 'PREPOSITIONAL_PHRASE_CHECKED'
             });
 
-            hideTagsAndAnnotations();
+            hideTagsAndAnnotations(dispatch);
 
             analyseOnModeChanged(dispatch);
         },
@@ -193,7 +223,7 @@ function mapDispatchToProps(dispatch) {
                 type: 'MAIN_CLAUSE_CHECKED'
             });
 
-            hideTagsAndAnnotations();
+            hideTagsAndAnnotations(dispatch);
 
             analyseOnModeChanged(dispatch);
         }
