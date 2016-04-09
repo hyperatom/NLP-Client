@@ -17,14 +17,8 @@ export default {
             span.className = 'annotation ' + 'annotation--' + activePhraseTag.toLowerCase();
 
             span.style.position = 'absolute';
-            span.style.top = 0;
-            span.style.left = 0;
-
-            var elemRect = taggedPhrase.getBoundingClientRect();
-
-            span.style.position = 'absolute';
-            span.style.top = elemRect.top + 40 + 'px';
-            span.style.left = elemRect.left + 'px';
+            span.style.top      = taggedPhrase.offsetTop + 40 + 'px';
+            span.style.left     = taggedPhrase.offsetLeft + 'px';
 
             document.body.appendChild(span);
         });
