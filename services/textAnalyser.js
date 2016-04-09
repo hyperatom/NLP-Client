@@ -3,14 +3,6 @@
 import Http from './http';
 import _    from 'underscore';
 
-var partOfSpeech = {
-    NOUN_PHRASE:          'NP',
-    SINGULAR_NOUN:        'NN',
-    PLURAL_NOUN:          'NNS',
-    SINGULAR_PROPER_NOUN: 'NNP',
-    PLURAL_PROPER_NOUN:   'NNPS'
-};
-
 function getSentenceTrees(textAnalysis) {
 
     var sentence = textAnalysis.data.document.sentences.sentence;
@@ -65,53 +57,6 @@ function getWordsOfType(tree, type) {
     return children;
 }
 
-function getPartOfSpeech(sentenceTree, type, index) {
-
-    var words = getWordsOfType(sentenceTree, type);
-
-    if (words && words.length > index) {
-
-        return words[index];
-    }
-
-    return '';
-}
-
-function getAllNouns(sentenceTree) {
-
-    var words = [];
-
-    words = words.concat(
-        getWordsOfType(sentenceTree, partOfSpeech.SINGULAR_NOUN),
-        getWordsOfType(sentenceTree, partOfSpeech.PLURAL_NOUN),
-        getWordsOfType(sentenceTree, partOfSpeech.SINGULAR_PROPER_NOUN),
-        getWordsOfType(sentenceTree, partOfSpeech.PLURAL_PROPER_NOUN)
-    );
-
-    return _.sortBy(words, function(word) {
-        return word.id;
-    });
-}
-
-function getFirstNoun(sentenceTree) {
-
-    var allNouns = getAllNouns(sentenceTree);
-
-    return allNouns[0].word || '';
-}
-
-function getFirstVerb(sentenceTree) {
-
-    return getPartOfSpeech(sentenceTree, 'VBD', 0).word;
-}
-
-function getSecondNoun(sentenceTree) {
-
-    var allNouns = getAllNouns(sentenceTree);
-
-    return allNouns[1].word || '';
-}
-
 function getFirstWord(tree) {
 
     if (tree.id) {
@@ -153,6 +98,39 @@ function getPhrasePositions(nodes) {
     return positions;
 }
 
+function removeGrammarNodesFromTree(tree) {
+
+    if (tree.children && tree.children.length > 0) {
+
+        for (var i = 0; i < tree.children.length; i++) {
+
+            if (tree.children[i].type === ',') {
+
+                var commaIndex = tree.children.indexOf(tree.children[i]);
+
+                if (commaIndex > -1) {
+
+                    tree.children.splice(commaIndex, 1);
+                }
+
+            } else {
+
+                removeGrammarNodesFromTree(tree.children[i]);
+            }
+        }
+    }
+}
+
+function removeGrammarNodesFromTrees(trees) {
+
+    _.each(trees, (tree) => {
+
+        removeGrammarNodesFromTree(tree);
+    });
+
+    return trees;
+}
+
 export default {
 
     analyse(text) {
@@ -166,11 +144,12 @@ export default {
 
     extractPhrasePositions(textAnalysis, phraseType) {
 
-        var sentenceTrees = getSentenceTrees(textAnalysis);
+        var sentenceTrees       = getSentenceTrees(textAnalysis),
+            prunedSentenceTrees = removeGrammarNodesFromTrees(sentenceTrees);
 
         var sentencePhrasePositions = [];
 
-        _.each(sentenceTrees, (tree) => {
+        _.each(prunedSentenceTrees, (tree) => {
 
             var phraseNodes     = getNodesOfType(tree, phraseType),
                 phrasePositions = getPhrasePositions(phraseNodes);
