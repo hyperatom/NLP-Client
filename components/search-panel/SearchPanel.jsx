@@ -155,24 +155,41 @@ class SearchPanel extends React.Component {
     render() {
 
         return (
-            <article style={ style.section }>
 
-                <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
-                               nounPhraseChecked={ this.props.nounPhraseChecked }
-                               isSubordinateClauseChecked={ this.props.isSubordinateClauseChecked }
-                               subordinateClauseChecked={ this.props.subordinateClauseChecked }
-                               isMainClauseChecked={ this.props.isMainClauseChecked }
-                               mainClauseChecked={ this.props.mainClauseChecked }
-                               isPrepositionalPhraseChecked={ this.props.isPrepositionalPhraseChecked }
-                               prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked } />
+            <div>
 
-                { this.getCorrectionPanel() }
+                <header style={ style.header }>
 
-                <TextComposer composerHtml={ this.props.composerHtml }
-                              textChanged={ this.props.textChanged }
-                              disabled={ this.props.isAnalysing } />
+                    <div style={ style.headerContent }>
 
-            </article>
+                        <i className="fa fa-pencil-square header-icon"></i>
+                        <h1 style={ style.headerTitle }>Grammar Finder</h1>
+                        <span style={ style.headerVersion }>v1.0</span>
+
+                    </div>
+
+                </header>
+
+                <article style={ style.section }>
+
+                    <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
+                                   nounPhraseChecked={ this.props.nounPhraseChecked }
+                                   isSubordinateClauseChecked={ this.props.isSubordinateClauseChecked }
+                                   subordinateClauseChecked={ this.props.subordinateClauseChecked }
+                                   isMainClauseChecked={ this.props.isMainClauseChecked }
+                                   mainClauseChecked={ this.props.mainClauseChecked }
+                                   isPrepositionalPhraseChecked={ this.props.isPrepositionalPhraseChecked }
+                                   prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked } />
+
+                    { this.getCorrectionPanel() }
+
+                    <TextComposer composerHtml={ this.props.composerHtml }
+                                  textChanged={ this.props.textChanged }
+                                  disabled={ this.props.isAnalysing } />
+
+                </article>
+
+            </div>
         )
     }
 }

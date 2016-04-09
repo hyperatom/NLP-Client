@@ -42,5 +42,29 @@ export default {
         paddingBottom: 20,
         paddingLeft: 10,
         paddingRight: 10
+    },
+
+    header: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        backgroundColor: '#676767'
+    },
+
+    headerContent: {
+        maxWidth: 700,
+        margin: '0 auto'
+    },
+
+    headerTitle: {
+        fontFamily: 'Patrick Hand',
+        fontSize: 30,
+        color: '#ECB410',
+        display: 'inline-block'
+    },
+
+    headerVersion: {
+        fontSize: 12,
+        color: '#F3E1AD',
+        marginLeft: 5
     }
 };

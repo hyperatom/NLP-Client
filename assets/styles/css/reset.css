@@ -61,6 +61,12 @@ html {
     font-family: Arial;
 }
 
+.header-icon {
+    font-size: 27px;
+    margin-right: 10px;
+    color: #F3E1AD;
+}
+
 .annotation {
     font-size: 18px;
     font-family: 'Patrick Hand', cursive;
