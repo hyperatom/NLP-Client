@@ -56,6 +56,11 @@ input {
     box-sizing: border-box;
 }
 
+html {
+    font-size: 18px;
+    font-family: Arial;
+}
+
 .annotation {
     font-size: 14px;
 }
@@ -83,4 +88,8 @@ input {
 .phrase--s {
     color: green;
     text-decoration: underline;
+}
+
+.warning {
+    color: darkorange;
 }

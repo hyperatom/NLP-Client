@@ -24,5 +24,13 @@ export default {
 
     sentenceTree: {
         marginBottom: 20
+    },
+
+    correctionTip: {
+        marginBottom: 25
+    },
+
+    correctionTipText: {
+        marginLeft: 10
     }
 };

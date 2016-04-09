@@ -75,11 +75,25 @@ class SearchPanel extends React.Component {
         return (
             <article style={ style.section }>
 
-                {
-                    this.props.sentenceTrees.map((tree, index) => {
-                        return (<p key={ index } style={ style.sentenceTree }>{ tree }</p>);
-                    })
-                }
+                <div style={ style.correctionTip }>
+
+                    <i className="fa fa-exclamation-circle warning"></i>
+
+                    <span style={ style.correctionTipText }>
+                        Remember to add a full stop at the end of each sentence.
+                    </span>
+
+                </div>
+
+                <div style={ style.correctionTip }>
+
+                    <i className="fa fa-exclamation-circle warning"></i>
+
+                    <span style={ style.correctionTipText }>
+                        Remember to begin sentences with a capital letter.
+                    </span>
+
+                </div>
 
                 <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
                                nounPhraseChecked={ this.props.nounPhraseChecked }
