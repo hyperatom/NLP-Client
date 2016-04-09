@@ -131,6 +131,40 @@ function removeGrammarNodesFromTrees(trees) {
     return trees;
 }
 
+var treeIndexCounter = 0;
+
+function reindexSentenceTree(tree) {
+
+    if (tree.id) {
+
+        tree.id = treeIndexCounter + 1;
+
+        treeIndexCounter = tree.id;
+    }
+
+    if (tree.children && tree.children.length > 0) {
+
+        for (var i = 0; i < tree.children.length; i++) {
+
+            reindexSentenceTree(tree.children[i]);
+        }
+    }
+
+    return tree;
+}
+
+function reindexSentenceTrees(trees) {
+
+    _.each(trees, (tree) => {
+
+        treeIndexCounter = 0;
+
+        reindexSentenceTree(tree);
+    });
+
+    return trees;
+}
+
 export default {
 
     analyse(text) {
@@ -145,7 +179,7 @@ export default {
     extractPhrasePositions(textAnalysis, phraseType) {
 
         var sentenceTrees       = getSentenceTrees(textAnalysis),
-            prunedSentenceTrees = removeGrammarNodesFromTrees(sentenceTrees);
+            prunedSentenceTrees = reindexSentenceTrees(removeGrammarNodesFromTrees(sentenceTrees));
 
         var sentencePhrasePositions = [];
 
