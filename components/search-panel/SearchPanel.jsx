@@ -70,30 +70,50 @@ class SearchPanel extends React.Component {
         }, false);
     }
 
+    getFullStopWarning() {
+
+        if (this.props.isMissingFullStop) {
+
+            return (
+                <div style={ style.correctionTip }>
+
+                    <i className="fa fa-exclamation-circle warning"></i>
+
+                        <span style={ style.correctionTipText }>
+                            Remember to add a full stop at the end of each sentence.
+                        </span>
+
+                </div>
+            );
+        }
+    }
+
+    getCapitalLetterWarning() {
+
+        if (this.props.isMissingCapitalLetter) {
+
+            return (
+                <div style={ style.correctionTip }>
+
+                    <i className="fa fa-exclamation-circle warning"></i>
+
+                        <span style={ style.correctionTipText }>
+                            Remember to begin sentences with a capital letter.
+                        </span>
+
+                </div>
+            );
+        }
+    }
+
     render() {
 
         return (
             <article style={ style.section }>
 
-                <div style={ style.correctionTip }>
+                { this.getCapitalLetterWarning() }
 
-                    <i className="fa fa-exclamation-circle warning"></i>
-
-                    <span style={ style.correctionTipText }>
-                        Remember to add a full stop at the end of each sentence.
-                    </span>
-
-                </div>
-
-                <div style={ style.correctionTip }>
-
-                    <i className="fa fa-exclamation-circle warning"></i>
-
-                    <span style={ style.correctionTipText }>
-                        Remember to begin sentences with a capital letter.
-                    </span>
-
-                </div>
+                { this.getFullStopWarning() }
 
                 <AnalysisModes isNounPhraseChecked={ this.props.isNounPhraseChecked }
                                nounPhraseChecked={ this.props.nounPhraseChecked }

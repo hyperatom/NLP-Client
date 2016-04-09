@@ -10,12 +10,26 @@ var defaultState = {
     isNounPhraseChecked: true,
     isSubordinateClauseChecked: false,
     isPrepositionalPhraseChecked: false,
-    isMainClauseChecked: false
+    isMainClauseChecked: false,
+    isMissingFullStop: false,
+    isMissingCapitalLetter: false
 };
 
 export default function(state = defaultState, action) {
 
     switch (action.type) {
+
+        case 'IS_MISSING_FULL_STOP_CHANGED':
+
+            return Object.assign({}, state, {
+                isMissingFullStop: action.isMissingFullStop
+            });
+
+        case 'IS_MISSING_CAPITAL_LETTER_CHANGED':
+
+            return Object.assign({}, state, {
+                isMissingCapitalLetter: action.isMissingCapitalLetter
+            });
 
         case 'ANALYSING_TEXT':
 
