@@ -1,6 +1,8 @@
 .panel {
-  padding: 10px;
+  padding: 10px 10px 10px 20px;
   background-color: #ebebeb;
+  border-left: 1px solid #ebebeb;
+  border-right: 1px solid #ebebeb;
   font-size: 20px;
 }
 
@@ -19,6 +21,8 @@
 }
 
 .input-group {
-  margin: 10px 0;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  margin: 10px -10px;
   padding: 5px;
 }
