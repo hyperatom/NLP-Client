@@ -8,6 +8,11 @@
     - ansible-timezone
     - nodesource.node
 
+  handlers:
+
+    - name: reload nginx
+      service: name=nginx state=reloaded
+
   tasks:
 
     - name: Allow us to work with PPAs easily
@@ -19,21 +24,14 @@
     - name: Copy files to server
       synchronize: src=./ dest=/nlp-client
 
-    - name: Install global Node modules
-      npm: name={{ item }} global=yes
-      with_items:
-        - forever
+    - name: Install Nginx
+      apt: name=nginx state=latest
+
+    - name: Copy default nginx site config
+      copy: src=./config/server.conf dest=/etc/nginx/sites-available/default
+      notify: reload nginx
 
     - name: Install node dependencies
       environment:
         NODE_ENV: production
       npm: path=/nlp-client
-
-    - name: Check list of Node.js apps running
-      command: forever list
-      register: forever_list
-      changed_when: false
-
-    - name: Start Node server
-      command: chdir=/nlp-client forever start node_modules/.bin/http-server -p 80 -d false
-      when: "forever_list.stdout.find('node_modules/.bin/http-server') == -1"

@@ -173,7 +173,7 @@ export default {
             q: text
         };
 
-        return Http.get('http://nlp.adambarrell.co.uk:8990', data);
+        return Http.get('http://nlp.adambarrell.co.uk/api', data);
     },
 
     extractPhrasePositions(textAnalysis, phraseType) {
