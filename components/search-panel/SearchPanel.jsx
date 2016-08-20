@@ -179,7 +179,13 @@ class SearchPanel extends React.Component {
                                    isMainClauseChecked={ this.props.isMainClauseChecked }
                                    mainClauseChecked={ this.props.mainClauseChecked }
                                    isPrepositionalPhraseChecked={ this.props.isPrepositionalPhraseChecked }
-                                   prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked } />
+                                   prepositionalPhraseChecked={ this.props.prepositionalPhraseChecked }
+                                   isAdverbsChecked={ this.props.isAdverbsChecked }
+                                   adverbsChecked={ this.props.adverbsChecked }
+                                   isVerbsChecked={ this.props.isVerbsChecked }
+                                   verbsChecked={ this.props.verbsChecked }
+                                   isAdjectivesChecked={ this.props.isAdjectivesChecked }
+                                   adjectivesChecked={ this.props.adjectivesChecked }/>
 
                     { this.getCorrectionPanel() }
 
@@ -213,6 +219,39 @@ function mapDispatchToProps(dispatch) {
             hideTagsAndAnnotations(dispatch);
 
             analyseOnTextChanged(dispatch);
+        },
+
+        adjectivesChecked() {
+
+            dispatch({
+                type: 'ADJECTIVES_CHECKED'
+            });
+
+            hideTagsAndAnnotations(dispatch);
+
+            analyseOnModeChanged(dispatch);
+        },
+
+        verbsChecked() {
+
+            dispatch({
+                type: 'VERBS_CHECKED'
+            });
+
+            hideTagsAndAnnotations(dispatch);
+
+            analyseOnModeChanged(dispatch);
+        },
+
+        adverbsChecked() {
+
+            dispatch({
+                type: 'ADVERBS_CHECKED'
+            });
+
+            hideTagsAndAnnotations(dispatch);
+
+            analyseOnModeChanged(dispatch);
         },
 
         nounPhraseChecked() {

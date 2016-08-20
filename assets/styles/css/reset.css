@@ -102,17 +102,17 @@ html {
 }
 
 .phrase--rb, .mode--rb {
-    color: black;
+    color: white;
     background-color: black;
 }
 
 .phrase--vb, .mode--vb {
-    color: darkorange;
+    color: white;
     background-color: darkorange;
 }
 
 .phrase--jj, .mode--jj {
-    color: deeppink;
+    color: white;
     background-color: deeppink;
 }
 

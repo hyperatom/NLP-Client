@@ -8,6 +8,9 @@ var defaultState = {
     isAnalysing: false,
     activePhraseTag: phraseTags.NOUN_PHRASE,
     isNounPhraseChecked: true,
+    isAdjectivesChecked: false,
+    isAdverbsChecked: false,
+    isVerbsChecked: false,
     isSubordinateClauseChecked: false,
     isPrepositionalPhraseChecked: false,
     isMainClauseChecked: false,
@@ -57,7 +60,10 @@ export default function(state = defaultState, action) {
                 isNounPhraseChecked: true,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
-                isMainClauseChecked: false
+                isMainClauseChecked: false,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: false,
+                isVerbsChecked: false
             });
 
         case 'SUBORDINATE_CLAUSE_CHECKED':
@@ -67,7 +73,10 @@ export default function(state = defaultState, action) {
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: true,
                 isPrepositionalPhraseChecked: false,
-                isMainClauseChecked: false
+                isMainClauseChecked: false,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: false,
+                isVerbsChecked: false
             });
 
         case 'PREPOSITIONAL_PHRASE_CHECKED':
@@ -77,7 +86,10 @@ export default function(state = defaultState, action) {
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: true,
-                isMainClauseChecked: false
+                isMainClauseChecked: false,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: false,
+                isVerbsChecked: false
             });
 
         case 'MAIN_CLAUSE_CHECKED':
@@ -87,7 +99,49 @@ export default function(state = defaultState, action) {
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
-                isMainClauseChecked: true
+                isMainClauseChecked: true,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: false,
+                isVerbsChecked: false
+            });
+
+        case 'ADVERBS_CHECKED':
+
+            return Object.assign({}, state, {
+                activePhraseTag: phraseTags.ADVERB,
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: false,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: true,
+                isVerbsChecked: false
+            });
+
+        case 'ADJECTIVES_CHECKED':
+
+            return Object.assign({}, state, {
+                activePhraseTag: phraseTags.ADJECTIVE,
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: false,
+                isAdjectivesChecked: true,
+                isAdverbsChecked: false,
+                isVerbsChecked: false
+            });
+
+        case 'VERBS_CHECKED':
+
+            return Object.assign({}, state, {
+                activePhraseTag: phraseTags.VERB,
+                isNounPhraseChecked: false,
+                isSubordinateClauseChecked: false,
+                isPrepositionalPhraseChecked: false,
+                isMainClauseChecked: false,
+                isAdjectivesChecked: false,
+                isAdverbsChecked: false,
+                isVerbsChecked: true
             });
 
         default:
