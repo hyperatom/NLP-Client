@@ -101,6 +101,21 @@ html {
     background-color: green;
 }
 
+.phrase--rb, .mode--rb {
+    color: black;
+    background-color: black;
+}
+
+.phrase--vb, .mode--vb {
+    color: darkorange;
+    background-color: darkorange;
+}
+
+.phrase--jj, .mode--jj {
+    color: deeppink;
+    background-color: deeppink;
+}
+
 .warning {
     color: darkorange;
 }

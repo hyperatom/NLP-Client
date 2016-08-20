@@ -71,6 +71,48 @@ class AnalysisModes extends React.Component {
 
                 </div>
 
+                <div className={ this.getInputGroupClassName('rb') }>
+
+                    <input styleName="radio-button"
+                           checked={ this.props.isAdverbsChecked }
+                           onChange={ this.props.adverbsChecked }
+                           id="adverbs"
+                           type="radio" />
+
+                    <label styleName="label">
+                        Adverbs
+                    </label>
+
+                </div>
+
+                <div className={ this.getInputGroupClassName('vb') }>
+
+                    <input styleName="radio-button"
+                           checked={ this.props.isVerbsChecked }
+                           onChange={ this.props.verbsChecked }
+                           id="verbs"
+                           type="radio" />
+
+                    <label styleName="label">
+                        Verbs
+                    </label>
+
+                </div>
+
+                <div className={ this.getInputGroupClassName('jj') }>
+
+                    <input styleName="radio-button"
+                           checked={ this.props.isAdjectivesChecked }
+                           onChange={ this.props.adjectivesChecked }
+                           id="adverbs"
+                           type="radio" />
+
+                    <label styleName="label">
+                        Adjectives
+                    </label>
+
+                </div>
+
             </div>
         )
     }
