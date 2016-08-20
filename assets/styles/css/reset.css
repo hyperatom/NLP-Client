@@ -101,17 +101,29 @@ html {
     background-color: green;
 }
 
-.phrase--rb, .mode--rb {
+.phrase--rb,
+.phrase--rbr,
+.phrase--rbs,
+.mode--rb {
     color: white;
     background-color: black;
 }
 
-.phrase--vb, .mode--vb {
+.phrase--vb,
+.phrase--vbd,
+.phrase--vbg,
+.phrase--vbn,
+.phrase--vbp,
+.phrase--vbz,
+.mode--vb {
     color: white;
     background-color: darkorange;
 }
 
-.phrase--jj, .mode--jj {
+.phrase--jj,
+.phrase--jjr,
+.phrase--jjs,
+.mode--jj {
     color: white;
     background-color: deeppink;
 }

@@ -28,9 +28,9 @@ function tagHtml(dispatch) {
 
     dispatch((thunkDispatch, getState) => {
 
-        var activePhraseTag = getState().activePhraseTag;
+        var activePhraseTags = getState().activePhraseTags;
 
-        textTagger.tag(getState().composerHtml, activePhraseTag)
+        textTagger.tag(getState().composerHtml, activePhraseTags)
             .then((tagResult) => {
 
                 thunkDispatch({
@@ -38,7 +38,7 @@ function tagHtml(dispatch) {
                     isAnalysing: false
                 });
 
-                setTimeout(() => { phraseAnnotator.showAnnotations(activePhraseTag) }, 0);
+                setTimeout(() => { phraseAnnotator.showAnnotations(activePhraseTags[0]) }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',

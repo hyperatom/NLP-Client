@@ -100,7 +100,7 @@ export default {
         document.body.className = 'hide-tags';
     },
 
-    tag(markup, activePhraseTag) {
+    tag(markup, activePhraseTags) {
 
         var tagger = this,
             defer  = q.defer();
@@ -114,9 +114,16 @@ export default {
 
                     var sentenceStructures = tagger._extractSentenceStructuresAsStrings(analysedText);
 
-                    var phrasePositions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTag);
+                    var phrasePositions = [];
 
-                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--' + activePhraseTag.toLowerCase());
+                    for (var i = 0; i < activePhraseTags.length; i++) {
+
+                        var positions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTags[i]);
+
+                        phrasePositions = phrasePositions.concat(positions);
+                    }
+
+                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--' + activePhraseTags[0].toLowerCase());
 
                     defer.resolve({
                         taggedMarkup,

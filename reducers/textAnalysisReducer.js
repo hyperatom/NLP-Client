@@ -6,7 +6,7 @@ var defaultState = {
     composerHtml: '',
     sentenceTrees: [],
     isAnalysing: false,
-    activePhraseTag: phraseTags.NOUN_PHRASE,
+    activePhraseTags: [phraseTags.NOUN_PHRASE],
     isNounPhraseChecked: true,
     isAdjectivesChecked: false,
     isAdverbsChecked: false,
@@ -56,7 +56,7 @@ export default function(state = defaultState, action) {
         case 'NOUN_PHRASE_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.NOUN_PHRASE,
+                activePhraseTags: [phraseTags.NOUN_PHRASE],
                 isNounPhraseChecked: true,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -69,7 +69,7 @@ export default function(state = defaultState, action) {
         case 'SUBORDINATE_CLAUSE_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.SUBORDINATE_CLAUSE,
+                activePhraseTags: [phraseTags.SUBORDINATE_CLAUSE],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: true,
                 isPrepositionalPhraseChecked: false,
@@ -82,7 +82,7 @@ export default function(state = defaultState, action) {
         case 'PREPOSITIONAL_PHRASE_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.PREPOSITIONAL_PHRASE,
+                activePhraseTags: [phraseTags.PREPOSITIONAL_PHRASE],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: true,
@@ -95,7 +95,7 @@ export default function(state = defaultState, action) {
         case 'MAIN_CLAUSE_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.MAIN_CLAUSE,
+                activePhraseTags: [phraseTags.MAIN_CLAUSE],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -108,7 +108,7 @@ export default function(state = defaultState, action) {
         case 'ADVERBS_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.ADVERB,
+                activePhraseTags: [phraseTags.ADVERB],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -121,7 +121,7 @@ export default function(state = defaultState, action) {
         case 'ADJECTIVES_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.ADJECTIVE,
+                activePhraseTags: [phraseTags.ADJECTIVE],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -134,7 +134,7 @@ export default function(state = defaultState, action) {
         case 'VERBS_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTag: phraseTags.VERB,
+                activePhraseTags: [phraseTags.VERB],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
