@@ -108,7 +108,11 @@ export default function(state = defaultState, action) {
         case 'ADVERBS_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTags: [phraseTags.ADVERB],
+                activePhraseTags: [
+                    phraseTags.ADVERB,
+                    phraseTags.ADVERB_COMPARATIVE,
+                    phraseTags.ADVERB_SUPERLATIVE
+                ],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -121,7 +125,11 @@ export default function(state = defaultState, action) {
         case 'ADJECTIVES_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTags: [phraseTags.ADJECTIVE],
+                activePhraseTags: [
+                    phraseTags.ADJECTIVE, 
+                    phraseTags.ADJECTIVE_COMPARATIVE,
+                    phraseTags.ADJECTIVE_SUPERLATIVE
+                ],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,
@@ -134,7 +142,14 @@ export default function(state = defaultState, action) {
         case 'VERBS_CHECKED':
 
             return Object.assign({}, state, {
-                activePhraseTags: [phraseTags.VERB],
+                activePhraseTags: [
+                    phraseTags.VERB,
+                    phraseTags.VERB_GERUND,
+                    phraseTags.VERB_NON_THIRD,
+                    phraseTags.VERB_THIRD,
+                    phraseTags.VERB_PAST_PARTICIPLE,
+                    phraseTags.VERB_PAST_TENSE
+                ],
                 isNounPhraseChecked: false,
                 isSubordinateClauseChecked: false,
                 isPrepositionalPhraseChecked: false,

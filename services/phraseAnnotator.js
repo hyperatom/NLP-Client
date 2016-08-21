@@ -5,22 +5,25 @@ import phraseNames from '../constants/phraseNames';
 
 export default {
 
-    showAnnotations(activePhraseTag) {
+    showAnnotations(activePhraseTags) {
 
-        var taggedPhrases = document.getElementsByClassName('phrase--' + activePhraseTag.toLowerCase());
+        _.each(activePhraseTags, function(activePhraseTag) {
 
-        _.each(taggedPhrases, (taggedPhrase) => {
+            var taggedPhrases = document.getElementsByClassName('phrase--' + activePhraseTag.toLowerCase());
 
-            var span = document.createElement('span');
+            _.each(taggedPhrases, (taggedPhrase) => {
 
-            span.innerHTML = phraseNames[activePhraseTag];
-            span.className = 'annotation ' + 'annotation--' + activePhraseTag.toLowerCase();
+                var span = document.createElement('span');
 
-            span.style.position = 'absolute';
-            span.style.top      = taggedPhrase.offsetTop + 40 + 'px';
-            span.style.left     = taggedPhrase.offsetLeft + 'px';
+                span.innerHTML = phraseNames[activePhraseTag];
+                span.className = 'annotation ' + 'annotation--' + activePhraseTag.toLowerCase();
+        
+                span.style.position = 'absolute';
+                span.style.top      = taggedPhrase.offsetTop + 40 + 'px';
+                span.style.left     = taggedPhrase.offsetLeft + 'px';
 
-            document.body.appendChild(span);
+                document.body.appendChild(span);
+            });
         });
     },
 

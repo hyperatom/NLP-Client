@@ -45,7 +45,12 @@ export default {
         return false;
     },
 
-    _applyTags(text, positions, className) {
+    _getPhraseClass(tag) {
+
+        return 'phrase phrase--' + tag.toLowerCase();
+    },
+
+    _applyTags(text, sentencePositions) {
 
         var _this      = this,
             taggedText = '';
@@ -56,23 +61,30 @@ export default {
 
             var j = 0;
 
+            var phraseClass = '';
+
+            if (sentencePositions.length > 0 && sentencePositions[index] && sentencePositions[index].length > 0) {
+
+                phraseClass = _this._getPhraseClass(sentencePositions[index][0]['tag']);
+            }
+
             var newText = sentence.replace(/\w+/g, function(s) {
 
-                if (_this._isStartingPosition(positions[index], j) && _this._isEndingPosition(positions[index], j)) {
+                if (_this._isStartingPosition(sentencePositions[index], j) && _this._isEndingPosition(sentencePositions[index], j)) {
 
                     j++;
 
-                    return '<span class="' + className + '">' + s + '</span>';
+                    return '<span class="' + phraseClass + '">' + s + '</span>';
                 }
 
-                if (_this._isStartingPosition(positions[index], j)) {
+                if (_this._isStartingPosition(sentencePositions[index], j)) {
 
                     j++;
 
-                    return '<span class="' + className + '">' + s;
+                    return '<span class="' + phraseClass + '">' + s;
                 }
 
-                if (_this._isEndingPosition(positions[index], j)) {
+                if (_this._isEndingPosition(sentencePositions[index], j)) {
 
                     j++;
 
@@ -118,13 +130,24 @@ export default {
 
                     for (var i = 0; i < activePhraseTags.length; i++) {
 
-                        var positions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTags[i]);
+                        // Array of arrays - L1 is sentences[], L2 is word positions[]
+                        var sentencePositions = textAnalyser.extractPhrasePositions(analysedText, activePhraseTags[i]);
 
-                        phrasePositions = phrasePositions.concat(positions);
+                        _.each(sentencePositions, function(positions, index) {
+
+                            if (phrasePositions[index]) {
+
+                                phrasePositions[index] = phrasePositions[index].concat(positions);
+
+                            } else {
+
+                                phrasePositions[index] = positions;
+                            }
+                        });
                     }
 
-                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions, 'phrase phrase--' + activePhraseTags[0].toLowerCase());
-
+                    var taggedMarkup = tagger._applyTags(rawText, phrasePositions);
+                    
                     defer.resolve({
                         taggedMarkup,
                         sentenceStructures

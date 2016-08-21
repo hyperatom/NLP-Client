@@ -38,7 +38,7 @@ function tagHtml(dispatch) {
                     isAnalysing: false
                 });
 
-                setTimeout(() => { phraseAnnotator.showAnnotations(activePhraseTags[0]) }, 0);
+                setTimeout(() => { phraseAnnotator.showAnnotations(activePhraseTags) }, 0);
 
                 thunkDispatch({
                     type: 'TEXT_TAGGED',

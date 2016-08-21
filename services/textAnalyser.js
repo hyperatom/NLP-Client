@@ -188,6 +188,11 @@ export default {
             var phraseNodes     = getNodesOfType(tree, phraseType),
                 phrasePositions = getPhrasePositions(phraseNodes);
 
+            _.each(phrasePositions, function(position) {
+
+                position.tag = phraseType
+            });
+
             sentencePhrasePositions.push(phrasePositions);
         });
 
