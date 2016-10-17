@@ -98,13 +98,13 @@ function getPhrasePositions(nodes) {
     return positions;
 }
 
-function removeGrammarNodesFromTree(tree) {
+function removeGrammarNodesFromTree(tree, phraseType) {
 
     if (tree.children && tree.children.length > 0) {
 
         for (var i = 0; i < tree.children.length; i++) {
 
-            if (tree.children[i].type === ',') {
+            if (tree.children[i].type === phraseType) {
 
                 var commaIndex = tree.children.indexOf(tree.children[i]);
 
@@ -115,17 +115,17 @@ function removeGrammarNodesFromTree(tree) {
 
             } else {
 
-                removeGrammarNodesFromTree(tree.children[i]);
+                removeGrammarNodesFromTree(tree.children[i], phraseType);
             }
         }
     }
 }
 
-function removeGrammarNodesFromTrees(trees) {
+function removeGrammarNodesFromTrees(trees, phraseType) {
 
     _.each(trees, (tree) => {
 
-        removeGrammarNodesFromTree(tree);
+        removeGrammarNodesFromTree(tree, phraseType);
     });
 
     return trees;
@@ -179,7 +179,7 @@ export default {
     extractPhrasePositions(textAnalysis, phraseType) {
 
         var sentenceTrees       = getSentenceTrees(textAnalysis),
-            prunedSentenceTrees = reindexSentenceTrees(removeGrammarNodesFromTrees(sentenceTrees));
+            prunedSentenceTrees = reindexSentenceTrees(removeGrammarNodesFromTrees(sentenceTrees, ','));
 
         var sentencePhrasePositions = [];
 

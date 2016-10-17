@@ -201,7 +201,7 @@ class SearchPanel extends React.Component {
                         this.props.sentenceTrees.map((tree, index) => {
 
                             return (
-                                <div style={ style.parseTreeText }>
+                                <div key={ index } style={ style.parseTreeText }>
                                     <h5>Sentence { index + 1 }</h5>
                                     <span>{ tree }</span>
                                 </div>
