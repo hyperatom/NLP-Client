@@ -66,5 +66,9 @@ export default {
         fontSize: 12,
         color: '#F3E1AD',
         marginLeft: 5
+    },
+
+    parseTreeText: {
+        marginBottom: 10
     }
 };
