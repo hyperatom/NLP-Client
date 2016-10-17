@@ -1,6 +1,6 @@
 import React        from 'react';
 import ReactDOM     from 'react-dom';
-import SearchPanel  from './components/search-panel/SearchPanel';
+import SearchPanel  from './components/SearchPanel';
 
 import { createStore, applyMiddleware } from 'redux';
 import { Provider }                     from 'react-redux';
