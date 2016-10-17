@@ -178,8 +178,16 @@ export default {
 
     extractPhrasePositions(textAnalysis, phraseType) {
 
-        var sentenceTrees       = getSentenceTrees(textAnalysis),
-            prunedSentenceTrees = reindexSentenceTrees(removeGrammarNodesFromTrees(sentenceTrees, ','));
+        var sentenceTrees = getSentenceTrees(textAnalysis);
+
+        var prunedSentenceTrees = removeGrammarNodesFromTrees(removeGrammarNodesFromTrees(sentenceTrees, ','), '.');
+
+        prunedSentenceTrees = reindexSentenceTrees(prunedSentenceTrees);
+
+        if (phraseType === 'S') {
+
+            prunedSentenceTrees = removeGrammarNodesFromTrees(prunedSentenceTrees, 'SBAR');
+        }
 
         var sentencePhrasePositions = [];
 
